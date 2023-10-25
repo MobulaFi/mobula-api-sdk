@@ -5,12 +5,12 @@
  */
 
 import { array, lazy, object, optional, Schema } from '../schema';
-import { WalletNFTData, walletNFTDataSchema } from './walletNFTData';
+import { Datum, datumSchema } from './datum';
 
 export interface WalletNftsResponse1 {
-  data?: WalletNFTData[];
+  data?: Datum[];
 }
 
 export const walletNftsResponse1Schema: Schema<WalletNftsResponse1> = object({
-  data: ['data', optional(array(lazy(() => walletNFTDataSchema)))],
+  data: ['data', optional(array(lazy(() => datumSchema)))],
 });

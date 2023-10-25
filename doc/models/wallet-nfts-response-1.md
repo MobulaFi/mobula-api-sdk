@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `data` | [`WalletNFTData[] \| undefined`](../../doc/models/wallet-nft-data.md) | Optional | - |
+| `data` | [`Datum[] \| undefined`](../../doc/models/datum.md) | Optional | - |
 
 ## Example (as JSON)
 
