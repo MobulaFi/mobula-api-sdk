@@ -9,15 +9,15 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `tokenAddress` | `string` | Required | - |
-| `tokenId` | `string` | Required | - |
-| `amount` | `string` | Required | - |
-| `tokenHash` | `string` | Required | - |
-| `contractType` | `string` | Required | - |
-| `name` | `string` | Required | - |
-| `symbol` | `string` | Required | - |
-| `tokenUri` | `string` | Required | - |
-| `metadata` | `string` | Required | - |
+| `tokenAddress` | `string \| undefined` | Optional | - |
+| `tokenId` | `string \| undefined` | Optional | - |
+| `amount` | `string \| undefined` | Optional | - |
+| `tokenHash` | `string \| undefined` | Optional | - |
+| `contractType` | `string \| undefined` | Optional | - |
+| `name` | `string \| undefined` | Optional | - |
+| `symbol` | `string \| undefined` | Optional | - |
+| `tokenUri` | `string \| undefined` | Optional | - |
+| `metadata` | `string \| undefined` | Optional | - |
 
 ## Example (as JSON)
 
@@ -27,11 +27,7 @@
   "token_id": "token_id6",
   "amount": "amount4",
   "token_hash": "token_hash6",
-  "contract_type": "contract_type0",
-  "name": "name2",
-  "symbol": "symbol4",
-  "token_uri": "token_uri0",
-  "metadata": "metadata4"
+  "contract_type": "contract_type0"
 }
 ```
 
