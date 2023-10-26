@@ -360,7 +360,7 @@ try {
 async fetchAssetMetadata(
   asset?: string,
   requestOptions?: RequestOptions
-): Promise<ApiResponse<Asset[]>>
+): Promise<ApiResponse<FetchAssetMetadataResponse>>
 ```
 
 ## Parameters
@@ -372,7 +372,7 @@ async fetchAssetMetadata(
 
 ## Response Type
 
-[`Asset[]`](../../doc/models/asset.md)
+[`FetchAssetMetadataResponse`](../../doc/models/containers/fetch-asset-metadata-response.md)
 
 ## Example Usage
 
@@ -383,6 +383,13 @@ try {
   // @ts-expect-error: unused variables
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { result, ...httpResponse } = await apiController.fetchAssetMetadata(asset);
+  if (FetchAssetMetadataResponse.isAsset(result)) {
+      // Use the result narrowed down to Asset type.
+  } else if (FetchAssetMetadataResponse.isArrayOfAsset(result)) {
+      // Use the result narrowed down to Asset[] type.
+  } else {
+      // result is narrowed down to type 'never'.
+  }
   // Get more response info...
   // const { statusCode, headers } = httpResponse;
 } catch (error) {

@@ -52,3 +52,4 @@ export type { WalletNFTsResponse } from './models/walletNFTsResponse';
 export type { WalletNftsResponse1 } from './models/walletNftsResponse1';
 export type { WalletPortfolioResponse } from './models/walletPortfolioResponse';
 export type { WalletTransactionsResponse } from './models/walletTransactionsResponse';
+export * from './models/containers/fetchAssetMetadataResponse';

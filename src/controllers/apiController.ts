@@ -7,7 +7,10 @@
 import { ApiResponse, RequestOptions } from '../core';
 import { ErrorResponseError } from '../errors/errorResponseError';
 import { AllResponse, allResponseSchema } from '../models/allResponse';
-import { Asset, assetSchema } from '../models/asset';
+import {
+  FetchAssetMetadataResponse,
+  fetchAssetMetadataResponseSchema,
+} from '../models/containers/fetchAssetMetadataResponse';
 import {
   MarketDataResponse1,
   marketDataResponse1Schema,
@@ -199,11 +202,11 @@ export class ApiController extends BaseController {
   async fetchAssetMetadata(
     asset?: string,
     requestOptions?: RequestOptions
-  ): Promise<ApiResponse<Asset[]>> {
+  ): Promise<ApiResponse<FetchAssetMetadataResponse>> {
     const req = this.createRequest('GET', '/metadata');
     const mapped = req.prepareArgs({ asset: [asset, optional(string())] });
     req.query('asset', mapped.asset);
-    return req.callAsJson(array(assetSchema), requestOptions);
+    return req.callAsJson(fetchAssetMetadataResponseSchema, requestOptions);
   }
 
   /**
