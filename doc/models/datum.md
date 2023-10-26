@@ -15,9 +15,9 @@
 | `tokenHash` | `string \| undefined` | Optional | - |
 | `contractType` | `string \| undefined` | Optional | - |
 | `name` | `string \| undefined` | Optional | - |
-| `symbol` | `string \| undefined` | Optional | - |
+| `symbol` | `string \| null \| undefined` | Optional | - |
 | `tokenUri` | `string \| undefined` | Optional | - |
-| `metadata` | `string \| undefined` | Optional | - |
+| `metadata` | `string \| null \| undefined` | Optional | - |
 
 ## Example (as JSON)
 
