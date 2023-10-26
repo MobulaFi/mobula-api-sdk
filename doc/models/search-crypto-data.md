@@ -18,9 +18,9 @@
 | `name` | `string \| undefined` | Optional | The name of the cryptocurrency |
 | `price` | `number \| undefined` | Optional | The price of the cryptocurrency |
 | `symbol` | `string \| undefined` | Optional | The symbol of the cryptocurrency |
-| `twitter` | `string \| undefined` | Optional | The Twitter link of the cryptocurrency |
+| `twitter` | `string \| null \| undefined` | Optional | The Twitter link of the cryptocurrency |
 | `volume` | `bigint \| undefined` | Optional | The volume of the cryptocurrency |
-| `website` | `string \| undefined` | Optional | The website of the cryptocurrency |
+| `website` | `string \| null \| undefined` | Optional | The website of the cryptocurrency |
 
 ## Example (as JSON)
 

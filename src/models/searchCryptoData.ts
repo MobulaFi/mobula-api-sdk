@@ -7,6 +7,7 @@
 import {
   array,
   bigint,
+  nullable,
   number,
   object,
   optional,
@@ -34,11 +35,11 @@ export interface SearchCryptoData {
   /** The symbol of the cryptocurrency */
   symbol?: string;
   /** The Twitter link of the cryptocurrency */
-  twitter?: string;
+  twitter?: string | null;
   /** The volume of the cryptocurrency */
   volume?: bigint;
   /** The website of the cryptocurrency */
-  website?: string;
+  website?: string | null;
 }
 
 export const searchCryptoDataSchema: Schema<SearchCryptoData> = object({
@@ -51,7 +52,7 @@ export const searchCryptoDataSchema: Schema<SearchCryptoData> = object({
   name: ['name', optional(string())],
   price: ['price', optional(number())],
   symbol: ['symbol', optional(string())],
-  twitter: ['twitter', optional(string())],
+  twitter: ['twitter', optional(nullable(string()))],
   volume: ['volume', optional(bigint())],
-  website: ['website', optional(string())],
+  website: ['website', optional(nullable(string()))],
 });
