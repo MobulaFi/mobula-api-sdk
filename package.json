@@ -1,5 +1,5 @@
 {
-  "version": "1.1.5",
+  "version": "1.1.6",
   "license": "MIT",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
@@ -25,10 +25,12 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "mobulalib",
-  "description": "A tool that allows the user to fetch real-time data for all crypto metrics.",
+  "name": "mobula-api-sdk",
+  "description": "Mobula opens all the APIs powering the platform: meta-data, market & historical data for crypto-assets (logo, price, volumes, charts), wallet data (transactions, historical balances, ROIs), and DeFi quotes (swap quotes)",
   "author": {
-    "name": "APIMATIC SDK Generator"
+    "name": "Mobula Labs",
+    "email": "contact@mobulalabs.org",
+    "url": "https://mobula.fi/"
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
@@ -46,7 +48,21 @@
     "@apimatic/core": "^0.10.0",
     "@apimatic/schema": "^0.7.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anouci/mobula-api-sdk.git"
+  },
   "bugs": {
-    "email": "support@apimatic.io"
-  }
+    "email": "contact@mobulalabs.org"
+  },
+  "homepage": "https://mobula.fi/",
+  "keywords": [
+    "API",
+    "Crypto",
+    "Wallet",
+    "Defi",
+    "DEX",
+    "Swap"
+  ],
+  "contributors": []
 }
