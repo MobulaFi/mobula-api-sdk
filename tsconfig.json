@@ -7,14 +7,14 @@
     "declaration": true,
     "sourceMap": true,
     "rootDir": "./src",
-    “outDir”: “./dist”,
+    "outDir": "./dist",  // Corrected quotes here
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    "target": "ES2017", 
+    "target": "ES2017",
     "jsx": "react",
     "esModuleInterop": true
   }
