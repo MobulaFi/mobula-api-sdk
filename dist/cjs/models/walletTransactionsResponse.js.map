@@ -1,0 +1,1 @@
+{"version":3,"file":"walletTransactionsResponse.js","sourceRoot":"","sources":["../../../src/models/walletTransactionsResponse.ts"],"names":[],"mappings":";AAAA;;;;GAIG;;;AAEH,oCAAkE;AAClE,6CAA+D;AAMlD,QAAA,gCAAgC,GAAuC,IAAA,eAAM,EACxF;IACE,YAAY,EAAE;QACZ,cAAc;QACd,IAAA,iBAAQ,EAAC,IAAA,cAAK,EAAC,IAAA,aAAI,EAAC,cAAM,OAAA,+BAAiB,EAAjB,CAAiB,CAAC,CAAC,CAAC;KAC/C;CACF,CACF,CAAC"}
