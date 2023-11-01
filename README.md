@@ -41,7 +41,7 @@ For an enhanced experience, acquire an API key. Generate your key and select a p
 Initiate the SDK as shown below:
 
 ```typescript
-import { Mobula } from "./node_modules/mobula-api-sdk/apiWrapper_2";
+import { Mobula } from "./node_modules/mobula-api-sdk/src/apiWrapper_2";
 
 const mobula = new Mobula("YOUR_API_KEY_HERE");
 
