@@ -32,8 +32,6 @@ Before starting with the Mobula API SDK, ensure you have the following:
 npm install mobula-api-sdk
 ```
 
-For package details, visit the [Npm page for mobula-api-sdk@1.1.6](https://www.npmjs.com/package/mobula-api-sdk/v/1.1.6).
-
 ## 🔑 Generate API Key
 
 For an enhanced experience, acquire an API key. Generate your key and select a plan fitting your project [here](https://developer.mobula.fi/reference/intro/authentication).
