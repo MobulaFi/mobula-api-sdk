@@ -113,4 +113,4 @@ Need assistance? Contact our support bot on [Telegram: Bot Support](https://t.me
 
 ---
 
-Crafted with love by Mobula for builders like you.
+Crafted with 💙 by Mobula for builders like you
