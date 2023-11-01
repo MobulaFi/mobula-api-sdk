@@ -128,6 +128,6 @@ function withUserAgent(rb: SdkRequestBuilder) {
 
 function withApiKey(apiKey: string) {
   return (rb: SdkRequestBuilder) => {
-    rb.header('Authorization', `Bearer ${apiKey}`);
+    rb.header('Authorization', apiKey);
   };
 }

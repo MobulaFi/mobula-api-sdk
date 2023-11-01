@@ -1,7 +1,8 @@
-import { ApiController, Client } from 'mobula-api-sdk/src';
-import { RequestOptions } from 'mobula-api-sdk/src/core';
-import { OrderEnum } from 'mobula-api-sdk/src/models/orderEnum';
-import { TypeEnum } from 'mobula-api-sdk/src/models/typeEnum';
+import { Client } from './client';
+import { ApiController } from './controllers/apiController';
+import { RequestOptions } from './core';
+import { OrderEnum } from './models/orderEnum';
+import { TypeEnum } from './models/typeEnum';
 
 class Mobula {
   private apiController: ApiController;
