@@ -9,6 +9,7 @@ import { RetryConfiguration } from './core';
 
 /** Default values for the configuration parameters of the client. */
 export const DEFAULT_CONFIGURATION: Configuration = {
+  apiKey: '',
   timeout: 0,
   environment: Environment.Production,
 };

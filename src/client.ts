@@ -5,6 +5,7 @@
  */
 
 import { noneAuthenticationProvider } from './authentication';
+import { HttpClient } from './clientAdapter';
 import {
   AuthParams,
   ClientInterface,
@@ -14,18 +15,17 @@ import {
 } from './clientInterface';
 import { Configuration, Environment } from './configuration';
 import {
+  AbortError,
+  ApiError,
+  AuthenticatorInterface,
+  HttpClientInterface,
+  RetryConfiguration,
+  createRequestBuilderFactory,
+} from './core';
+import {
   DEFAULT_CONFIGURATION,
   DEFAULT_RETRY_CONFIG,
 } from './defaultConfiguration';
-import { ApiError } from './core';
-import {
-  AbortError,
-  AuthenticatorInterface,
-  createRequestBuilderFactory,
-  HttpClientInterface,
-  RetryConfiguration,
-} from './core';
- import { HttpClient } from './clientAdapter';
 
 const USER_AGENT = 'APIMATIC 3.0';
 
@@ -49,7 +49,7 @@ export class Client implements ClientInterface {
         ? this._config.httpClientOptions.timeout
         : this._config.timeout;
     this._requestBuilderFactory = createRequestHandlerFactory(
-      server => getBaseUri(server, this._config),
+      (server) => getBaseUri(server, this._config),
       noneAuthenticationProvider,
       new HttpClient(AbortError, {
         timeout: this._timeout,
@@ -57,10 +57,7 @@ export class Client implements ClientInterface {
         httpAgent: this._config.httpClientOptions?.httpAgent,
         httpsAgent: this._config.httpClientOptions?.httpsAgent,
       }),
-      [
-        withErrorHandlers,
-        withUserAgent,
-      ],
+      [withErrorHandlers, withUserAgent, withApiKey(this._config.apiKey)],
       this._retryConfig
     );
   }
@@ -116,7 +113,7 @@ function tap(
 ): SdkRequestBuilderFactory {
   return (...args) => {
     const requestBuilder = requestBuilderFactory(...args);
-    callback.forEach(c => c(requestBuilder));
+    callback.forEach((c) => c(requestBuilder));
     return requestBuilder;
   };
 }
@@ -129,3 +126,8 @@ function withUserAgent(rb: SdkRequestBuilder) {
   rb.header('user-agent', USER_AGENT);
 }
 
+function withApiKey(apiKey: string) {
+  return (rb: SdkRequestBuilder) => {
+    rb.header('Authorization', `Bearer ${apiKey}`);
+  };
+}
