@@ -122,7 +122,7 @@ Upgrade plans:
 
 ## 📞 Support
 
-Need assistance? Contact our support bot on [Telegram: Bot Support](https://t.me/MobulaPartnerBot?start=Mobula_API_Support).
+Need assistance? Contact our support bot on [Telegram: Bot Support](https://t.me/MobulaPartnerBot?start=Mobula_API_Support)
 
 ---
 
