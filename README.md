@@ -72,6 +72,10 @@ mobula
 
 Replace `YOUR_API_KEY_HERE` with your API key.
 
+### Response
+
+![Response example](https://i.imgur.com/Es0DhoJ.png)
+
 ---
 
 ## 🛠 SDK Methods
