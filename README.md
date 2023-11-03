@@ -26,7 +26,20 @@ Before starting with the Mobula API SDK, ensure you have the following:
 
 ## 📦 Installation
 
-1. Install the package by running the following command in your project directory:
+1. Create a new directory for your project and navigate into it:
+
+```bash
+mkdir my-new-project
+cd my-new-project
+```
+
+2. Initialize a new npm project. This step creates a package.json file in your project directory:
+
+```bash
+npm init -y
+```
+
+3. Install mobula-api-sdk. This will install the package and add it as a dependency in your package.json file:
 
 ```bash
 npm install mobula-api-sdk
@@ -41,7 +54,7 @@ For an enhanced experience, acquire an API key. Generate your key and select a p
 Initiate the SDK as shown below:
 
 ```typescript
-import { Mobula } from "./node_modules/mobula-api-sdk/src/apiWrapper_2";
+import { Mobula } from "mobula-api-sdk/dist/cjs/apiWrapper_2";
 
 const mobula = new Mobula("YOUR_API_KEY_HERE");
 
