@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "sideEffects": false,
   "main": "dist/cjs/apiWrapper_2.js",
@@ -7,7 +7,8 @@
   "module": "dist/esm/apiWrapper_2.js",
   "files": [
     "dist",
-    "src"
+    "src",
+    "tsconfig.json"
   ],
   "engines": {
     "node": ">=14.17.0"
