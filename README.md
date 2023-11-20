@@ -1,14 +1,13 @@
 # Getting Started with Mobula API SDK 
 
-A powerful tool to fetch real-time crypto metrics data with ease.
+Mobula empowers builders with top-tier APIs for market data, wallet data & DeFi quotes. Industry-leading coverage & granularity, SQL queries, and high flexibility.
 
 ## 📑 Table of Contents
 
 - [Introduction](#-introduction)
 - [Prerequisites](#-prerequisites)
-- [Installation](#-installation)
 - [Generate API Key](#-generate-api-key)
-- [Usage](#-usage)
+- [Installation](#-installation)
 - [SDK Methods](#-sdk-methods)
 - [Documentation](#-documentation)
 - [Upgrade](#-upgrade)
@@ -24,37 +23,28 @@ Before starting with the Mobula API SDK, ensure you have the following:
 
 - Node.js installed on your machine. Download and install Node.js from [here](https://nodejs.org/).
 
+## 🔑 Generate API Key
+
+For an enhanced experience, acquire an API key. Generate your key and select a plan fitting your project [here](https://docs.mobula.fi/api-reference/authentification).
+
 ## 📦 Installation
 
-1. Create a new directory for your project and navigate into it:
-
-```bash
-mkdir my-new-project
-cd my-new-project
-```
-
-2. Initialize a new npm project. This step creates a package.json file in your project directory:
+1. Initialize a new npm project in your directory
 
 ```bash
 npm init -y
 ```
 
-3. Install mobula-api-sdk. This will install the package and add it as a dependency in your package.json file:
+2. Install mobula-api-sdk
 
 ```bash
 npm install mobula-api-sdk
 ```
 
-## 🔑 Generate API Key
-
-For an enhanced experience, acquire an API key. Generate your key and select a plan fitting your project [here](https://developer.mobula.fi/reference/intro/authentication).
-
-## 💡 Usage
-
-Initiate the SDK as shown below:
+3. Initiate the SDK as shown below
 
 ```typescript
-import { Mobula } from "mobula-api-sdk/dist/cjs/apiWrapper_2";
+import { Mobula } from "mobula-api-sdk";
 
 const mobula = new Mobula("YOUR_API_KEY_HERE");
 
@@ -62,10 +52,10 @@ mobula
   .fetchWalletHistoryBalance({
     wallet: "0x77A89C51f106D6cD547542a3A83FE73cB4459135",
   })
-  .then(response => {
+  .then((response) => {
     console.log(response);
   })
-  .catch(error => {
+  .catch((error) => {
     console.error("Error:", error);
   });
 ```
@@ -74,7 +64,18 @@ Replace `YOUR_API_KEY_HERE` with your API key.
 
 ### Response
 
-![Response example](https://i.imgur.com/Es0DhoJ.png)
+```json
+
+body: '{"data":{"wallet":["0x77a89c51f106d6cd547542a3a83fe73cb4459135"],"balance_usd":186.11174894116627,"balance_history":
+[[1650788304000,0],[1650788305000,0],[1650874705000,40.94737444508439],
+[1650961105000,41.43979364186007],[1651047505000,41.52255389488385],
+[1651133905000,39.98507396566903],[1651220305000,41.36797682434358],
+[1651306705000,39.94252843778348],[1651393105000,38.42918052538283],
+[1651479505000,38.44553804299468],[1651565905000,42.12988132520523],
+[1651652305000,41.08260516823677],[1651738705000,42.932806984287325],
+[1651825105000,40.20314283431752],[1661265693000,61.1200498094'... 51976 more characters,
+
+```
 
 ---
 
@@ -110,8 +111,8 @@ The `Mobula` class provides several methods to interact with the Mobula API. Her
 
 ## 📚 Documentation
 
-- [Getting Started](https://developer.mobula.fi/reference/getting-started)
-- [API Reference](https://developer.mobula.fi/reference/introduction-copy)
+- [Getting Started](https://docs.mobula.fi/sdk/introduction)
+- [Index](https://docs.mobula.fi/sdk/methods_index)
 
 ## 🔄 Upgrade
 
@@ -119,9 +120,9 @@ Upgrade plans:
 
 | Plan        | Credits/month | Support | Price/month | Link         |
 |-------------|---------------|---------|-------------|--------------|
-| Free        | 300,000       | 24/7 support on Telegram, Discord, and Slack | $0 | [Link](https://developer.mobula.fi/reference/introduction-copy) |
-| Premium     | 1,500,000     | 24/7 support on Telegram, Discord, and Slack | $250 | [Upgrade now](https://checkout.stripe.com/c/pay/plink_1NrSA0FPgmBnPcIqOkueK6R8#fidkdWxOYHwnPyd1blppbHNgWjA0S3VqMm9DVWJoR2tVZkx0NDB1STc2MnRXcjRHZE5AZmhEPT1iMUBKUG9tXDU1MnV2bTVEYUhhcnJrT2Y3dE5TX2hRfGhqZkgxS0BBfHN1NFd2f1RfYDdjNTVPYFJrdEE0TicpJ3VpbGtuQH11anZgYUxhJz8nYFNkMnIzN20wNnxcNV9kMG5uJyknd2BjYHd3YHdKd2xibGsnPydtcXF1dj8qKmFgc2BpanVgdytoamdwaWQrY2wqJ3gl) |
-| Advanced    | 5,000,000     | 24/7 support on Telegram, Discord, and Slack | $750 | [Upgrade now](https://checkout.stripe.com/c/pay/cs_live_b1jPve4PMttJ3SCsHKVf6p1pw2P9qvN0grFWevQkL6e54QgJvJ0PkCrA94#fidkdWxOYHwnPyd1blppbHNgWjA0S3VqMm9DVWJoR2tVZkx0NDB1STc2MnRXcjRHZE5AZmhEPT1iMUBKUG9tXDU1MnV2bTVEYUhhcnJrT2Y3dE5TX2hRfGhqZkgxS0BBfHN1NFd2f1RfYDdjNTVPYFJrdEE0TicpJ3VpbGtuQH11anZgYUxhJz8nY19gZExsM31pM0lkYlw9Y1xfJyknd2BjYHd3YHdKd2xibGsnPydtcXF1dj8qKmFgc2BpanVgdytoamdwaWQrY2wqJ3gl) |
+| Free        | 300,000       | 24/7 support on Telegram, Discord, and Slack | $0 | [Link](https://docs.mobula.fi/api-reference/introduction) |
+| Premium     | 1,500,000     | 24/7 support on Telegram, Discord, and Slack | $250 | [Upgrade now](https://admin.mobula.fi/) |
+| Advanced    | 5,000,000     | 24/7 support on Telegram, Discord, and Slack | $750 | [Upgrade now](https://admin.mobula.fi/) |
 | Enterprise  | Unlimited     | 24/7 support, custom endpoints, 99.9% SLA | from $750 | [Contact us](https://t.me/MobulaPartnerBot?start=Enterprise) |
 
 ## 📞 Support
