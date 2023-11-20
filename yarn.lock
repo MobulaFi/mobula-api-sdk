@@ -25,7 +25,7 @@
     "@apimatic/http-query" "^0.3.0"
     tslib "^2.1.0"
 
-"@apimatic/axios-client-adapter@^0.2.0":
+"@apimatic/axios-client-adapter@^0.2.2":
   version "0.2.2"
   resolved "https://registry.npmjs.org/@apimatic/axios-client-adapter/-/axios-client-adapter-0.2.2.tgz#5bef1ab802823767c5165f12b2c54abfdf4fceb8"
   integrity sha512-cbMd/CiIUmbtYpHjQgptptkeeWWko8MtuOI5rJfqxL/ElYI0ABSytdO5fuT4Q+hXQHQrkPRgL2z9yUMRoFEARg==
@@ -63,7 +63,7 @@
     "@apimatic/file-wrapper" "^0.3.0"
     tslib "^2.1.0"
 
-"@apimatic/core@^0.10.0":
+"@apimatic/core@^0.10.2":
   version "0.10.2"
   resolved "https://registry.npmjs.org/@apimatic/core/-/core-0.10.2.tgz#a93f4b769fcbd2d7d0c4ca7efe0dbf6c4f486b7c"
   integrity sha512-KPoeHmFnaMJHU1itJV0PwiQnMauI9WI2tPnCyrpOucyHupirH8JqtAKcYD5AVRoL9hKSCiFwTKd9pX9glVJgKQ==
