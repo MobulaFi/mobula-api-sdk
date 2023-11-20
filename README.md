@@ -65,8 +65,6 @@ Replace `YOUR_API_KEY_HERE` with your API key.
 ### Response
 
 ```json
-
-```json
 {"data":{"wallet":["0x77a89c51f106d6cd547542a3a83fe73cb4459135"],"balance_usd":186.11174894116627,"balance_history": [...]}}
 
 ```
