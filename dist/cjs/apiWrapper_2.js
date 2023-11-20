@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.Mobula = void 0;
 var tslib_1 = require("tslib");
 var client_1 = require("./client");
@@ -8,7 +8,7 @@ var Mobula = /** @class */ (function () {
     function Mobula(apiKey) {
         var client = new client_1.Client({
             apiKey: apiKey,
-            timeout: 0,
+            timeout: 0
         });
         this.apiController = new apiController_1.ApiController(client);
     }
