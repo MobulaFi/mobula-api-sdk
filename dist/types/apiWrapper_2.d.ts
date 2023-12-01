@@ -1,4 +1,6 @@
-import { RequestOptions } from './core';
+import { ApiResponse, RequestOptions } from './core';
+import { MarketPairResponse } from './models/marketPairResponse';
+import { MarketPairsResponse } from './models/marketPairsResponse';
 import { OrderEnum } from './models/orderEnum';
 import { TypeEnum } from './models/typeEnum';
 declare class Mobula {
@@ -7,42 +9,55 @@ declare class Mobula {
     fetchCryptoDataByName(options: {
         name?: string;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").SearchResponse>>;
+    }): Promise<ApiResponse<import(".").SearchResponse>>;
     fetchWalletNFTs(options: {
         wallet?: string;
         force?: boolean;
+        blockchains?: string;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").WalletNftsResponse1>>;
+    }): Promise<ApiResponse<import(".").WalletNftsResponse1>>;
     fetchAllCryptoDetails(options: {
         fields?: string;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").AllResponse>>;
+    }): Promise<ApiResponse<import(".").AllResponse>>;
     fetchAssetMarketData(options: {
         asset: string;
         blockchain?: string;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").MarketDataResponse1>>;
+    }): Promise<ApiResponse<import(".").MarketDataResponse1>>;
+    fetchPairMarketData(options: {
+        address: string;
+        blockchain?: string;
+        asset?: unknown;
+        requestOptions?: RequestOptions;
+    }): Promise<ApiResponse<MarketPairResponse>>;
+    fetchPairsMarketData(options: {
+        asset: string;
+        blockchain?: string;
+        offset?: number;
+        requestOptions?: RequestOptions;
+    }): Promise<ApiResponse<MarketPairsResponse>>;
     fetchAssetMarketHistory(options: {
         asset: string;
         blockchain?: string;
         from?: number;
         to?: number;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").MarketHistoryResponse>>;
+    }): Promise<ApiResponse<import(".").MarketHistoryResponse>>;
     fetchAssetMetadata(options: {
         asset?: string;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").FetchAssetMetadataResponse>>;
+    }): Promise<ApiResponse<import(".").FetchAssetMetadataResponse>>;
     fetchAssetTradeHistory(options: {
         asset: string;
         maxResults?: number;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").TradeHistoryItem[]>>;
+    }): Promise<ApiResponse<import(".").TradeHistoryItem[]>>;
     fetchMultipleAssetMarketData(options: {
         assets: string;
         blockchains?: string;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<Record<string, import(".").MarketMetrics>>>;
+    }): Promise<ApiResponse<Record<string, import(".").MarketMetrics>>>;
     fetchSwapQuote(options: {
         chain: string;
         fromToken: string;
@@ -53,35 +68,31 @@ declare class Mobula {
         receiver?: string;
         type?: TypeEnum;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").QuoteResponse1>>;
+    }): Promise<ApiResponse<import(".").QuoteResponse1>>;
     fetchWalletHistoryBalance(options: {
         wallet: string;
         from?: number;
         to?: number;
+        blockchains?: string;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").WalletHistoryResponse>>;
+    }): Promise<ApiResponse<import(".").WalletHistoryResponse>>;
     fetchWalletHoldings(options: {
         wallet: string;
-        timestamp?: number;
-        asset?: string;
-        blockchain?: string;
-        tokens?: boolean;
-        nfts?: boolean;
-        coins?: boolean;
+        blockchains?: string;
+        cache?: boolean;
+        stale?: number;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").WalletPortfolioResponse>>;
+    }): Promise<ApiResponse<import(".").WalletPortfolioResponse>>;
     fetchWalletTransactions(options: {
         wallet: string;
         from?: number;
         to?: number;
         asset?: string;
-        blockchain?: string;
-        trades?: boolean;
-        transactions?: boolean;
+        blockchains?: string;
         limit?: number;
         offset?: number;
         order?: OrderEnum;
         requestOptions?: RequestOptions;
-    }): Promise<import("@apimatic/core-interfaces/lib/apiResponse").ApiResponse<import(".").WalletTransactionsResponse>>;
+    }): Promise<ApiResponse<import(".").WalletTransactionsResponse>>;
 }
 export { Mobula };

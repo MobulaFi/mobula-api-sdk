@@ -9,6 +9,8 @@ import { fetchAssetMetadataResponseSchema, } from '../models/containers/fetchAss
 import { marketDataResponse1Schema, } from '../models/marketDataResponse1';
 import { marketHistoryResponseSchema, } from '../models/marketHistoryResponse';
 import { marketMetricsSchema } from '../models/marketMetrics';
+import { marketPairResponseSchema, } from '../models/marketPairResponse';
+import { marketPairsResponseSchema, } from '../models/marketPairsResponse';
 import { orderEnumSchema } from '../models/orderEnum';
 import { quoteResponse1Schema } from '../models/quoteResponse1';
 import { searchResponseSchema } from '../models/searchResponse';
@@ -18,7 +20,7 @@ import { walletHistoryResponseSchema, } from '../models/walletHistoryResponse';
 import { walletNftsResponse1Schema, } from '../models/walletNftsResponse1';
 import { walletPortfolioResponseSchema, } from '../models/walletPortfolioResponse';
 import { walletTransactionsResponseSchema, } from '../models/walletTransactionsResponse';
-import { array, bigint, boolean, dict, number, optional, string, } from '../schema';
+import { array, bigint, boolean, dict, number, optional, string, unknown, } from '../schema';
 import { BaseController } from './baseController';
 export class ApiController extends BaseController {
     /**
@@ -32,18 +34,22 @@ export class ApiController extends BaseController {
         return req.callAsJson(searchResponseSchema, requestOptions);
     }
     /**
-     * @param wallet Wallet address or ENS or Mobula username
-     * @param force  Will force a new on-chain data fetch
+     * @param wallet      Wallet address or ENS or Mobula username
+     * @param force       Will force a new on-chain data fetch
+     * @param blockchains Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or
+     *                               chain name
      * @return Response from the API call
      */
-    async fetchWalletNFTs(wallet, force, requestOptions) {
+    async fetchWalletNFTs(wallet, force, blockchains, requestOptions) {
         const req = this.createRequest('GET', '/wallet/nfts');
         const mapped = req.prepareArgs({
             wallet: [wallet, optional(string())],
             force: [force, optional(boolean())],
+            blockchains: [blockchains, optional(string())],
         });
         req.query('wallet', mapped.wallet);
         req.query('force', mapped.force);
+        req.query('blockchains', mapped.blockchains);
         return req.callAsJson(walletNftsResponse1Schema, requestOptions);
     }
     /**
@@ -72,6 +78,42 @@ export class ApiController extends BaseController {
         return req.callAsJson(marketDataResponse1Schema, requestOptions);
     }
     /**
+     * @param address    The address of the smart-contract of the pair (or pool, or vault).
+     * @param blockchain Blockchain of the pair (only mandatory for Balancer V2 pairs).
+     * @param asset      The name/address of the asset you want in return
+     * @return Response from the API call
+     */
+    async fetchPairMarketData(address, blockchain, asset, requestOptions) {
+        const req = this.createRequest('GET', '/market/pair');
+        const mapped = req.prepareArgs({
+            address: [address, string()],
+            blockchain: [blockchain, optional(string())],
+            asset: [asset, optional(unknown())],
+        });
+        req.query('address', mapped.address);
+        req.query('blockchain', mapped.blockchain);
+        req.query('asset', mapped.asset);
+        return req.callAsJson(marketPairResponseSchema, requestOptions);
+    }
+    /**
+     * @param asset      The asset you want to target - asset name only works for assets listed on Mobula.
+     * @param blockchain Blockchain of the asset - only mandatory if asset is sent as smart-contract.
+     * @param offset     The offset of the results
+     * @return Response from the API call
+     */
+    async fetchPairsMarketData(asset, blockchain, offset, requestOptions) {
+        const req = this.createRequest('GET', '/market/pairs');
+        const mapped = req.prepareArgs({
+            asset: [asset, string()],
+            blockchain: [blockchain, optional(string())],
+            offset: [offset, optional(number())],
+        });
+        req.query('asset', mapped.asset);
+        req.query('blockchain', mapped.blockchain);
+        req.query('offset', mapped.offset);
+        return req.callAsJson(marketPairsResponseSchema, requestOptions);
+    }
+    /**
      * @param asset      The asset you want to target - asset name only works for assets listed on Mobula.
      * @param blockchain Blockchain of the asset - only mandatory if asset is sent as smart-contract.
      * @param from       JS Timestamp (miliseconds) of the beginning of the timeframe (if not provided,
@@ -94,7 +136,7 @@ export class ApiController extends BaseController {
         return req.callAsJson(marketHistoryResponseSchema, requestOptions);
     }
     /**
-     * @param assets      Comma separated list of asset names or Ethereum addresses (max 50)
+     * @param assets      Comma separated list of asset names or Ethereum addresses (max 500)
      * @param blockchains Comma separated list of blockchain names
      * @return Response from the API call
      */
@@ -169,81 +211,73 @@ export class ApiController extends BaseController {
         return req.callAsJson(quoteResponse1Schema, requestOptions);
     }
     /**
-     * @param wallet The user wallet queried
-     * @param from   JS Timestamp (miliseconds) of the beginning of the timeframe (if not provided, genesis)
-     * @param to     JS Timestamp (miliseconds) of the end of the timeframe (if not provided, end)
+     * @param wallet      The user wallet queried
+     * @param from        JS Timestamp (miliseconds) of the beginning of the timeframe (if not provided,
+     *                              genesis)
+     * @param to          JS Timestamp (miliseconds) of the end of the timeframe (if not provided, end)
+     * @param blockchains Blockchains to fetch history from (by default, all) - comma separated, chain ID or
+     *                              chain name
      * @return Response from the API call
      */
-    async fetchWalletHistoryBalance(wallet, from, to, requestOptions) {
+    async fetchWalletHistoryBalance(wallet, from, to, blockchains, requestOptions) {
         const req = this.createRequest('GET', '/wallet/history');
         const mapped = req.prepareArgs({
             wallet: [wallet, string()],
             from: [from, optional(number())],
             to: [to, optional(number())],
+            blockchains: [blockchains, optional(string())],
         });
         req.query('wallet', mapped.wallet);
         req.query('from', mapped.from);
         req.query('to', mapped.to);
+        req.query('blockchains', mapped.blockchains);
         return req.callAsJson(walletHistoryResponseSchema, requestOptions);
     }
     /**
-     * @param wallet     The user wallet queried
-     * @param timestamp  ISO Date string from which you want to start receiving transactions - NOW by
-     *                              default
-     * @param asset      The asset you want to target (empty if you want general portfolio)
-     * @param blockchain The blockchain you want to target (empty if you want general transactions)
-     * @param tokens     true if tokens included (true by default)
-     * @param nfts       true if nfts included (false by default)
-     * @param coins      true if coins included (true by default)
+     * @param wallet      The user wallet queried
+     * @param blockchains Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or
+     *                               chain name
+     * @param cache       Will use cached data if available
+     * @param stale       amount of seconds after which the cache is considered stale (default 5min)
      * @return Response from the API call
      */
-    async fetchWalletHoldings(wallet, timestamp, asset, blockchain, tokens, nfts, coins, requestOptions) {
+    async fetchWalletHoldings(wallet, blockchains, cache, stale, requestOptions) {
         const req = this.createRequest('GET', '/wallet/portfolio');
         const mapped = req.prepareArgs({
             wallet: [wallet, string()],
-            timestamp: [timestamp, optional(number())],
-            asset: [asset, optional(string())],
-            blockchain: [blockchain, optional(string())],
-            tokens: [tokens, optional(boolean())],
-            nfts: [nfts, optional(boolean())],
-            coins: [coins, optional(boolean())],
+            blockchains: [blockchains, optional(string())],
+            cache: [cache, optional(boolean())],
+            stale: [stale, optional(number())],
         });
         req.query('wallet', mapped.wallet);
-        req.query('timestamp', mapped.timestamp);
-        req.query('asset', mapped.asset);
-        req.query('blockchain', mapped.blockchain);
-        req.query('tokens', mapped.tokens);
-        req.query('nfts', mapped.nfts);
-        req.query('coins', mapped.coins);
+        req.query('blockchains', mapped.blockchains);
+        req.query('cache', mapped.cache);
+        req.query('stale', mapped.stale);
         return req.callAsJson(walletPortfolioResponseSchema, requestOptions);
     }
     /**
-     * @param wallet       The user wallet queried
-     * @param from         ISO Date string OR Timestamp from which you want to start receiving
-     *                                  transactions
-     * @param to           ISO Date string OR Timestamp until which you want to receive transactions
-     * @param asset        The asset you want to target, use the asset's name (empty if you want general
-     *                                  transactions)
-     * @param blockchain   The blockchain you want to target (empty if you want general transactions)
-     * @param trades       true if trades included (true by default)
-     * @param transactions true if non-trades transactions included (true by default)
-     * @param limit        Number of transactions to return (100 by default)
-     * @param offset       Number of pages to skip (0 by default) - limit * offset = number of transactions
-     *                                  to skip
-     * @param order        Order in which transactions should be sorted. Use 'asc' for ascending and 'desc'
-     *                                  for descending.
+     * @param wallet      The user wallet queried
+     * @param from        ISO Date string OR Timestamp from which you want to start receiving transactions
+     * @param to          ISO Date string OR Timestamp until which you want to receive transactions
+     * @param asset       The asset you want to target, use the asset's name (empty if you want general
+     *                                 transactions)
+     * @param blockchains Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or
+     *                                 chain name
+     * @param limit       Number of transactions to return (100 by default)
+     * @param offset      Number of pages to skip (0 by default) - limit * offset = number of transactions
+     *                                 to skip
+     * @param order       Order in which transactions should be sorted. Use 'asc' for ascending and 'desc'
+     *                                 for descending.
      * @return Response from the API call
      */
-    async fetchWalletTransactions(wallet, from, to, asset, blockchain, trades, transactions, limit, offset, order, requestOptions) {
+    async fetchWalletTransactions(wallet, from, to, asset, blockchains, limit, offset, order, requestOptions) {
         const req = this.createRequest('GET', '/wallet/transactions');
         const mapped = req.prepareArgs({
             wallet: [wallet, string()],
             from: [from, optional(number())],
             to: [to, optional(number())],
             asset: [asset, optional(string())],
-            blockchain: [blockchain, optional(string())],
-            trades: [trades, optional(boolean())],
-            transactions: [transactions, optional(boolean())],
+            blockchains: [blockchains, optional(string())],
             limit: [limit, optional(number())],
             offset: [offset, optional(number())],
             order: [order, optional(orderEnumSchema)],
@@ -252,9 +286,7 @@ export class ApiController extends BaseController {
         req.query('from', mapped.from);
         req.query('to', mapped.to);
         req.query('asset', mapped.asset);
-        req.query('blockchain', mapped.blockchain);
-        req.query('trades', mapped.trades);
-        req.query('transactions', mapped.transactions);
+        req.query('blockchains', mapped.blockchains);
         req.query('limit', mapped.limit);
         req.query('offset', mapped.offset);
         req.query('order', mapped.order);

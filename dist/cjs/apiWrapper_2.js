@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mobula = void 0;
 var tslib_1 = require("tslib");
 var client_1 = require("./client");
@@ -8,7 +8,7 @@ var Mobula = /** @class */ (function () {
     function Mobula(apiKey) {
         var client = new client_1.Client({
             apiKey: apiKey,
-            timeout: 0
+            timeout: 0,
         });
         this.apiController = new apiController_1.ApiController(client);
     }
@@ -26,7 +26,7 @@ var Mobula = /** @class */ (function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiController.fetchWalletNFTs(options.wallet, options.force, options.requestOptions)];
+                    case 0: return [4 /*yield*/, this.apiController.fetchWalletNFTs(options.wallet, options.force, options.blockchains)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -47,6 +47,26 @@ var Mobula = /** @class */ (function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.apiController.fetchAssetMarketData(options.asset, options.blockchain, options.requestOptions)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Mobula.prototype.fetchPairMarketData = function (options) {
+        return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib_1.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiController.fetchPairMarketData(options.address, options.blockchain, options.asset, options.requestOptions)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Mobula.prototype.fetchPairsMarketData = function (options) {
+        return tslib_1.__awaiter(this, void 0, void 0, function () {
+            return tslib_1.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiController.fetchPairsMarketData(options.asset, options.blockchain, options.offset, options.requestOptions)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -106,7 +126,7 @@ var Mobula = /** @class */ (function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiController.fetchWalletHistoryBalance(options.wallet, options.from, options.to, options.requestOptions)];
+                    case 0: return [4 /*yield*/, this.apiController.fetchWalletHistoryBalance(options.wallet, options.from, options.to, options.blockchains)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -116,7 +136,7 @@ var Mobula = /** @class */ (function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiController.fetchWalletHoldings(options.wallet, options.timestamp, options.asset, options.blockchain, options.tokens, options.nfts, options.coins, options.requestOptions)];
+                    case 0: return [4 /*yield*/, this.apiController.fetchWalletHoldings(options.wallet, options.blockchains, options.cache, options.stale, options.requestOptions)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -126,7 +146,7 @@ var Mobula = /** @class */ (function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiController.fetchWalletTransactions(options.wallet, options.from, options.to, options.asset, options.blockchain, options.trades, options.transactions, options.limit, options.offset, options.order, options.requestOptions)];
+                    case 0: return [4 /*yield*/, this.apiController.fetchWalletTransactions(options.wallet, options.from, options.to, options.asset, options.blockchains, options.limit, options.offset, options.order)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

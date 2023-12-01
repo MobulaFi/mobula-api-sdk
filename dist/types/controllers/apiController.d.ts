@@ -9,6 +9,8 @@ import { FetchAssetMetadataResponse } from '../models/containers/fetchAssetMetad
 import { MarketDataResponse1 } from '../models/marketDataResponse1';
 import { MarketHistoryResponse } from '../models/marketHistoryResponse';
 import { MarketMetrics } from '../models/marketMetrics';
+import { MarketPairResponse } from '../models/marketPairResponse';
+import { MarketPairsResponse } from '../models/marketPairsResponse';
 import { OrderEnum } from '../models/orderEnum';
 import { QuoteResponse1 } from '../models/quoteResponse1';
 import { SearchResponse } from '../models/searchResponse';
@@ -26,11 +28,13 @@ export declare class ApiController extends BaseController {
      */
     fetchCryptoDataByName(name?: string, requestOptions?: RequestOptions): Promise<ApiResponse<SearchResponse>>;
     /**
-     * @param wallet Wallet address or ENS or Mobula username
-     * @param force  Will force a new on-chain data fetch
+     * @param wallet      Wallet address or ENS or Mobula username
+     * @param force       Will force a new on-chain data fetch
+     * @param blockchains Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or
+     *                               chain name
      * @return Response from the API call
      */
-    fetchWalletNFTs(wallet?: string, force?: boolean, requestOptions?: RequestOptions): Promise<ApiResponse<WalletNftsResponse1>>;
+    fetchWalletNFTs(wallet?: string, force?: boolean, blockchains?: string, requestOptions?: RequestOptions): Promise<ApiResponse<WalletNftsResponse1>>;
     /**
      * @param fields Extra fields needed
      * @return Response from the API call
@@ -43,6 +47,20 @@ export declare class ApiController extends BaseController {
      */
     fetchAssetMarketData(asset: string, blockchain?: string, requestOptions?: RequestOptions): Promise<ApiResponse<MarketDataResponse1>>;
     /**
+     * @param address    The address of the smart-contract of the pair (or pool, or vault).
+     * @param blockchain Blockchain of the pair (only mandatory for Balancer V2 pairs).
+     * @param asset      The name/address of the asset you want in return
+     * @return Response from the API call
+     */
+    fetchPairMarketData(address: string, blockchain?: string, asset?: unknown, requestOptions?: RequestOptions): Promise<ApiResponse<MarketPairResponse>>;
+    /**
+     * @param asset      The asset you want to target - asset name only works for assets listed on Mobula.
+     * @param blockchain Blockchain of the asset - only mandatory if asset is sent as smart-contract.
+     * @param offset     The offset of the results
+     * @return Response from the API call
+     */
+    fetchPairsMarketData(asset: string, blockchain?: string, offset?: number, requestOptions?: RequestOptions): Promise<ApiResponse<MarketPairsResponse>>;
+    /**
      * @param asset      The asset you want to target - asset name only works for assets listed on Mobula.
      * @param blockchain Blockchain of the asset - only mandatory if asset is sent as smart-contract.
      * @param from       JS Timestamp (miliseconds) of the beginning of the timeframe (if not provided,
@@ -52,7 +70,7 @@ export declare class ApiController extends BaseController {
      */
     fetchAssetMarketHistory(asset: string, blockchain?: string, from?: number, to?: number, requestOptions?: RequestOptions): Promise<ApiResponse<MarketHistoryResponse>>;
     /**
-     * @param assets      Comma separated list of asset names or Ethereum addresses (max 50)
+     * @param assets      Comma separated list of asset names or Ethereum addresses (max 500)
      * @param blockchains Comma separated list of blockchain names
      * @return Response from the API call
      */
@@ -81,40 +99,38 @@ export declare class ApiController extends BaseController {
      */
     fetchSwapQuote(chain: string, fromToken: string, toToken: string, fromAddress: string, amount: bigint, slippage: number, receiver?: string, type?: TypeEnum, requestOptions?: RequestOptions): Promise<ApiResponse<QuoteResponse1>>;
     /**
-     * @param wallet The user wallet queried
-     * @param from   JS Timestamp (miliseconds) of the beginning of the timeframe (if not provided, genesis)
-     * @param to     JS Timestamp (miliseconds) of the end of the timeframe (if not provided, end)
+     * @param wallet      The user wallet queried
+     * @param from        JS Timestamp (miliseconds) of the beginning of the timeframe (if not provided,
+     *                              genesis)
+     * @param to          JS Timestamp (miliseconds) of the end of the timeframe (if not provided, end)
+     * @param blockchains Blockchains to fetch history from (by default, all) - comma separated, chain ID or
+     *                              chain name
      * @return Response from the API call
      */
-    fetchWalletHistoryBalance(wallet: string, from?: number, to?: number, requestOptions?: RequestOptions): Promise<ApiResponse<WalletHistoryResponse>>;
+    fetchWalletHistoryBalance(wallet: string, from?: number, to?: number, blockchains?: string, requestOptions?: RequestOptions): Promise<ApiResponse<WalletHistoryResponse>>;
     /**
-     * @param wallet     The user wallet queried
-     * @param timestamp  ISO Date string from which you want to start receiving transactions - NOW by
-     *                              default
-     * @param asset      The asset you want to target (empty if you want general portfolio)
-     * @param blockchain The blockchain you want to target (empty if you want general transactions)
-     * @param tokens     true if tokens included (true by default)
-     * @param nfts       true if nfts included (false by default)
-     * @param coins      true if coins included (true by default)
+     * @param wallet      The user wallet queried
+     * @param blockchains Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or
+     *                               chain name
+     * @param cache       Will use cached data if available
+     * @param stale       amount of seconds after which the cache is considered stale (default 5min)
      * @return Response from the API call
      */
-    fetchWalletHoldings(wallet: string, timestamp?: number, asset?: string, blockchain?: string, tokens?: boolean, nfts?: boolean, coins?: boolean, requestOptions?: RequestOptions): Promise<ApiResponse<WalletPortfolioResponse>>;
+    fetchWalletHoldings(wallet: string, blockchains?: string, cache?: boolean, stale?: number, requestOptions?: RequestOptions): Promise<ApiResponse<WalletPortfolioResponse>>;
     /**
-     * @param wallet       The user wallet queried
-     * @param from         ISO Date string OR Timestamp from which you want to start receiving
-     *                                  transactions
-     * @param to           ISO Date string OR Timestamp until which you want to receive transactions
-     * @param asset        The asset you want to target, use the asset's name (empty if you want general
-     *                                  transactions)
-     * @param blockchain   The blockchain you want to target (empty if you want general transactions)
-     * @param trades       true if trades included (true by default)
-     * @param transactions true if non-trades transactions included (true by default)
-     * @param limit        Number of transactions to return (100 by default)
-     * @param offset       Number of pages to skip (0 by default) - limit * offset = number of transactions
-     *                                  to skip
-     * @param order        Order in which transactions should be sorted. Use 'asc' for ascending and 'desc'
-     *                                  for descending.
+     * @param wallet      The user wallet queried
+     * @param from        ISO Date string OR Timestamp from which you want to start receiving transactions
+     * @param to          ISO Date string OR Timestamp until which you want to receive transactions
+     * @param asset       The asset you want to target, use the asset's name (empty if you want general
+     *                                 transactions)
+     * @param blockchains Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or
+     *                                 chain name
+     * @param limit       Number of transactions to return (100 by default)
+     * @param offset      Number of pages to skip (0 by default) - limit * offset = number of transactions
+     *                                 to skip
+     * @param order       Order in which transactions should be sorted. Use 'asc' for ascending and 'desc'
+     *                                 for descending.
      * @return Response from the API call
      */
-    fetchWalletTransactions(wallet: string, from?: number, to?: number, asset?: string, blockchain?: string, trades?: boolean, transactions?: boolean, limit?: number, offset?: number, order?: OrderEnum, requestOptions?: RequestOptions): Promise<ApiResponse<WalletTransactionsResponse>>;
+    fetchWalletTransactions(wallet: string, from?: number, to?: number, asset?: string, blockchains?: string, limit?: number, offset?: number, order?: OrderEnum, requestOptions?: RequestOptions): Promise<ApiResponse<WalletTransactionsResponse>>;
 }
