@@ -11,6 +11,5 @@ export interface WalletPortfolioResponse {
   assets?: Asset4[];
 }
 
-export const walletPortfolioResponseSchema: Schema<WalletPortfolioResponse> = object(
-  { assets: ['assets', optional(array(lazy(() => asset4Schema)))] }
-);
+export const walletPortfolioResponseSchema: Schema<WalletPortfolioResponse> =
+  object({ assets: ['assets', optional(array(lazy(() => asset4Schema)))] });

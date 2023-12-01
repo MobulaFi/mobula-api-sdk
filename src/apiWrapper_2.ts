@@ -1,6 +1,8 @@
 import { Client } from './client';
 import { ApiController } from './controllers/apiController';
-import { RequestOptions } from './core';
+import { ApiResponse, RequestOptions } from './core';
+import { MarketPairResponse } from './models/marketPairResponse';
+import { MarketPairsResponse } from './models/marketPairsResponse';
 import { OrderEnum } from './models/orderEnum';
 import { TypeEnum } from './models/typeEnum';
 
@@ -28,12 +30,13 @@ class Mobula {
   public async fetchWalletNFTs(options: {
     wallet?: string;
     force?: boolean;
+    blockchains?: string;
     requestOptions?: RequestOptions;
   }) {
     return await this.apiController.fetchWalletNFTs(
       options.wallet,
       options.force,
-      options.requestOptions
+      options.blockchains
     );
   }
 
@@ -55,6 +58,34 @@ class Mobula {
     return await this.apiController.fetchAssetMarketData(
       options.asset,
       options.blockchain,
+      options.requestOptions
+    );
+  }
+
+  public async fetchPairMarketData(options: {
+    address: string;
+    blockchain?: string;
+    asset?: unknown;
+    requestOptions?: RequestOptions;
+  }): Promise<ApiResponse<MarketPairResponse>> {
+    return await this.apiController.fetchPairMarketData(
+      options.address,
+      options.blockchain,
+      options.asset,
+      options.requestOptions
+    );
+  }
+
+  public async fetchPairsMarketData(options: {
+    asset: string;
+    blockchain?: string;
+    offset?: number;
+    requestOptions?: RequestOptions;
+  }): Promise<ApiResponse<MarketPairsResponse>> {
+    return await this.apiController.fetchPairsMarketData(
+      options.asset,
+      options.blockchain,
+      options.offset,
       options.requestOptions
     );
   }
@@ -137,34 +168,29 @@ class Mobula {
     wallet: string;
     from?: number;
     to?: number;
+    blockchains?: string;
     requestOptions?: RequestOptions;
   }) {
     return await this.apiController.fetchWalletHistoryBalance(
       options.wallet,
       options.from,
       options.to,
-      options.requestOptions
+      options.blockchains
     );
   }
 
   public async fetchWalletHoldings(options: {
     wallet: string;
-    timestamp?: number;
-    asset?: string;
-    blockchain?: string;
-    tokens?: boolean;
-    nfts?: boolean;
-    coins?: boolean;
+    blockchains?: string;
+    cache?: boolean;
+    stale?: number;
     requestOptions?: RequestOptions;
   }) {
     return await this.apiController.fetchWalletHoldings(
       options.wallet,
-      options.timestamp,
-      options.asset,
-      options.blockchain,
-      options.tokens,
-      options.nfts,
-      options.coins,
+      options.blockchains,
+      options.cache,
+      options.stale,
       options.requestOptions
     );
   }
@@ -174,9 +200,7 @@ class Mobula {
     from?: number;
     to?: number;
     asset?: string;
-    blockchain?: string;
-    trades?: boolean;
-    transactions?: boolean;
+    blockchains?: string;
     limit?: number;
     offset?: number;
     order?: OrderEnum;
@@ -187,13 +211,10 @@ class Mobula {
       options.from,
       options.to,
       options.asset,
-      options.blockchain,
-      options.trades,
-      options.transactions,
+      options.blockchains,
       options.limit,
       options.offset,
-      options.order,
-      options.requestOptions
+      options.order
     );
   }
 }
