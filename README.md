@@ -8,7 +8,6 @@ Mobula empowers builders with top-tier APIs for market data, wallet data & DeFi 
 - [Prerequisites](#-prerequisites)
 - [Generate API Key](#-generate-api-key)
 - [Installation](#-installation)
-- [SDK Methods](#-sdk-methods)
 - [Documentation](#-documentation)
 - [Upgrade](#-upgrade)
 - [Support](#-support)
@@ -68,25 +67,6 @@ Replace `YOUR_API_KEY_HERE` with your API key.
 {"data":{"wallet":["0x77a89c51f106d6cd547542a3a83fe73cb4459135"],"balance_usd":186.11174894116627,"balance_history": [...]}}
 
 ```
-
----
-
-## 🛠 SDK Methods
-
-The `Mobula` class provides several methods to interact with the Mobula API. Here's a list of available methods:
-
-1. `fetchCryptoDataByName(options: { name?: string; requestOptions?: RequestOptions; })`: Fetch crypto data by its name.
-2. `fetchWalletNFTs(options: { wallet?: string; force?: boolean; requestOptions?: RequestOptions; })`: Retrieve NFTs associated with a given wallet.
-3. `fetchAllCryptoDetails(options: { fields?: string; requestOptions?: RequestOptions; })`: Get details of all cryptocurrencies.
-4. `fetchAssetMarketData(options: { asset: string; blockchain?: string; requestOptions?: RequestOptions; })`: Fetch market data for a specific asset.
-5. `fetchAssetMarketHistory(options: { asset: string; blockchain?: string; from?: number; to?: number; requestOptions?: RequestOptions; })`: Get market history for a particular asset.
-6. `fetchAssetMetadata(options: { asset?: string; requestOptions?: RequestOptions; })`: Retrieve metadata for a specific asset.
-7. `fetchAssetTradeHistory(options: { asset: string; maxResults?: number; requestOptions?: RequestOptions; })`: Get trade history for an asset.
-8. `fetchMultipleAssetMarketData(options: { assets: string; blockchains?: string; requestOptions?: RequestOptions; })`: Fetch market data for multiple assets.
-9. `fetchSwapQuote(options: { chain: string; fromToken: string; toToken: string; fromAddress: string; amount: bigint; slippage: number; receiver?: string; type?: TypeEnum; requestOptions?: RequestOptions; })`: Get a swap quote.
-10. `fetchWalletHistoryBalance(options: { wallet: string; from?: number; to?: number; requestOptions?: RequestOptions; })`: Retrieve the history balance of a wallet.
-11. `fetchWalletHoldings(options: { wallet: string; timestamp?: number; asset?: string; blockchain?: string; tokens?: boolean; nfts?: boolean; coins?: boolean; requestOptions?: RequestOptions; })`: Get holdings of a wallet.
-12. `fetchWalletTransactions(options: { wallet: string; from?: number; to?: number; asset?: string; blockchain?: string; trades?: boolean; transactions?: boolean; limit?: number; offset?: number; order?: OrderEnum; requestOptions?: RequestOptions; })`: Fetch transactions of a wallet.
 
 ---
 
