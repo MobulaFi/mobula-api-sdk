@@ -88,19 +88,22 @@ var ApiController = /** @class */ (function (_super) {
     /**
      * @param asset      The asset you want to target - asset name only works for assets listed on Mobula.
      * @param blockchain Blockchain of the asset - only mandatory if asset is sent as smart-contract.
+     * @param symbol     Symbol of the asset - only mandatory if no asset name/contract is provided
      * @return Response from the API call
      */
-    ApiController.prototype.fetchAssetMarketData = function (asset, blockchain, requestOptions) {
+    ApiController.prototype.fetchAssetMarketData = function (asset, blockchain, symbol, requestOptions) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             var req, mapped;
             return tslib_1.__generator(this, function (_a) {
                 req = this.createRequest('GET', '/market/data');
                 mapped = req.prepareArgs({
-                    asset: [asset, (0, schema_1.string)()],
+                    asset: [asset, (0, schema_1.optional)((0, schema_1.string)())],
                     blockchain: [blockchain, (0, schema_1.optional)((0, schema_1.string)())],
+                    symbol: [symbol, (0, schema_1.optional)((0, schema_1.string)())],
                 });
                 req.query('asset', mapped.asset);
                 req.query('blockchain', mapped.blockchain);
+                req.query('symbol', mapped.symbol);
                 return [2 /*return*/, req.callAsJson(marketDataResponse1_1.marketDataResponse1Schema, requestOptions)];
             });
         });
@@ -181,19 +184,22 @@ var ApiController = /** @class */ (function (_super) {
     /**
      * @param assets      Comma separated list of asset names or Ethereum addresses (max 500)
      * @param blockchains Comma separated list of blockchain names
+     * @param symbols     Comma separated list of symbols
      * @return Response from the API call
      */
-    ApiController.prototype.fetchMultipleAssetMarketData = function (assets, blockchains, requestOptions) {
+    ApiController.prototype.fetchMultipleAssetMarketData = function (assets, blockchains, symbols, requestOptions) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             var req, mapped;
             return tslib_1.__generator(this, function (_a) {
                 req = this.createRequest('GET', '/market/multi-data');
                 mapped = req.prepareArgs({
-                    assets: [assets, (0, schema_1.string)()],
+                    assets: [assets, (0, schema_1.optional)((0, schema_1.string)())],
                     blockchains: [blockchains, (0, schema_1.optional)((0, schema_1.string)())],
+                    symbols: [symbols, (0, schema_1.optional)((0, schema_1.string)())],
                 });
                 req.query('assets', mapped.assets);
                 req.query('blockchains', mapped.blockchains);
+                req.query('symbols', mapped.symbols);
                 req.throwOn(400, errorResponseError_1.ErrorResponseError, 'Invalid input - too many assets or invalid blockchain name');
                 return [2 /*return*/, req.callAsJson((0, schema_1.dict)(marketMetrics_1.marketMetricsSchema), requestOptions)];
             });
@@ -221,16 +227,21 @@ var ApiController = /** @class */ (function (_super) {
         });
     };
     /**
-     * @param asset Name or contract address of the asset
+     * @param asset      Name or contract address of the asset
+     * @param blockchain Blockchain of the asset
      * @return Response from the API call
      */
-    ApiController.prototype.fetchAssetMetadata = function (asset, requestOptions) {
+    ApiController.prototype.fetchAssetMetadata = function (asset, blockchain, requestOptions) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             var req, mapped;
             return tslib_1.__generator(this, function (_a) {
                 req = this.createRequest('GET', '/metadata');
-                mapped = req.prepareArgs({ asset: [asset, (0, schema_1.optional)((0, schema_1.string)())] });
+                mapped = req.prepareArgs({
+                    asset: [asset, (0, schema_1.string)()],
+                    blockchain: [blockchain, (0, schema_1.optional)((0, schema_1.string)())],
+                });
                 req.query('asset', mapped.asset);
+                req.query('blockchain', mapped.blockchain);
                 return [2 /*return*/, req.callAsJson(fetchAssetMetadataResponse_1.fetchAssetMetadataResponseSchema, requestOptions)];
             });
         });

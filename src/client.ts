@@ -83,7 +83,7 @@ function createHttpClientAdapter(client: HttpClient): HttpClientInterface {
 function getBaseUri(server: Server = 'default', config: Configuration): string {
   if (config.environment === Environment.Production) {
     if (server === 'default') {
-      return 'https://api.app-mobula.com/api/1';
+      return 'https://api.mobula.io/api/1';
     }
   }
   throw new Error('Could not get Base URL. Invalid environment or server.');

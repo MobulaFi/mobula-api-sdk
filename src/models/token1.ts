@@ -7,7 +7,6 @@
 import { number, object, optional, Schema, string } from '../schema';
 
 export interface Token1 {
-  reserve?: string;
   address?: string;
   name?: string;
   price?: number;
@@ -15,7 +14,6 @@ export interface Token1 {
 }
 
 export const token1Schema: Schema<Token1> = object({
-  reserve: ['reserve', optional(string())],
   address: ['address', optional(string())],
   name: ['name', optional(string())],
   price: ['price', optional(number())],

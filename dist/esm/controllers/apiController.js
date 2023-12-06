@@ -65,16 +65,19 @@ export class ApiController extends BaseController {
     /**
      * @param asset      The asset you want to target - asset name only works for assets listed on Mobula.
      * @param blockchain Blockchain of the asset - only mandatory if asset is sent as smart-contract.
+     * @param symbol     Symbol of the asset - only mandatory if no asset name/contract is provided
      * @return Response from the API call
      */
-    async fetchAssetMarketData(asset, blockchain, requestOptions) {
+    async fetchAssetMarketData(asset, blockchain, symbol, requestOptions) {
         const req = this.createRequest('GET', '/market/data');
         const mapped = req.prepareArgs({
-            asset: [asset, string()],
+            asset: [asset, optional(string())],
             blockchain: [blockchain, optional(string())],
+            symbol: [symbol, optional(string())],
         });
         req.query('asset', mapped.asset);
         req.query('blockchain', mapped.blockchain);
+        req.query('symbol', mapped.symbol);
         return req.callAsJson(marketDataResponse1Schema, requestOptions);
     }
     /**
@@ -138,16 +141,19 @@ export class ApiController extends BaseController {
     /**
      * @param assets      Comma separated list of asset names or Ethereum addresses (max 500)
      * @param blockchains Comma separated list of blockchain names
+     * @param symbols     Comma separated list of symbols
      * @return Response from the API call
      */
-    async fetchMultipleAssetMarketData(assets, blockchains, requestOptions) {
+    async fetchMultipleAssetMarketData(assets, blockchains, symbols, requestOptions) {
         const req = this.createRequest('GET', '/market/multi-data');
         const mapped = req.prepareArgs({
-            assets: [assets, string()],
+            assets: [assets, optional(string())],
             blockchains: [blockchains, optional(string())],
+            symbols: [symbols, optional(string())],
         });
         req.query('assets', mapped.assets);
         req.query('blockchains', mapped.blockchains);
+        req.query('symbols', mapped.symbols);
         req.throwOn(400, ErrorResponseError, 'Invalid input - too many assets or invalid blockchain name');
         return req.callAsJson(dict(marketMetricsSchema), requestOptions);
     }
@@ -168,13 +174,18 @@ export class ApiController extends BaseController {
         return req.callAsJson(array(tradeHistoryItemSchema), requestOptions);
     }
     /**
-     * @param asset Name or contract address of the asset
+     * @param asset      Name or contract address of the asset
+     * @param blockchain Blockchain of the asset
      * @return Response from the API call
      */
-    async fetchAssetMetadata(asset, requestOptions) {
+    async fetchAssetMetadata(asset, blockchain, requestOptions) {
         const req = this.createRequest('GET', '/metadata');
-        const mapped = req.prepareArgs({ asset: [asset, optional(string())] });
+        const mapped = req.prepareArgs({
+            asset: [asset, string()],
+            blockchain: [blockchain, optional(string())],
+        });
         req.query('asset', mapped.asset);
+        req.query('blockchain', mapped.blockchain);
         return req.callAsJson(fetchAssetMetadataResponseSchema, requestOptions);
     }
     /**

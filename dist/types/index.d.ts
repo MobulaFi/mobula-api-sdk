@@ -5,10 +5,11 @@
  */
 export * from './client';
 export * from './configuration';
-export * from './controllers/apiController';
-export { AbortError, ApiError, ArgumentsValidationError, FileWrapper, ResponseValidationError, cloneFileWrapper, isFileWrapper, } from './core';
 export type { ApiResponse } from './core';
+export { AbortError, ArgumentsValidationError, cloneFileWrapper, FileWrapper, isFileWrapper, ResponseValidationError, } from './core';
 export * from './defaultConfiguration';
+export * from './controllers/apiController';
+export { ApiError } from './core';
 export * from './errors/errorResponseError';
 export type { AllResponse } from './models/allResponse';
 export type { Approximations } from './models/approximations';
@@ -16,7 +17,6 @@ export type { Asset } from './models/asset';
 export type { Asset1 } from './models/asset1';
 export type { Asset2 } from './models/asset2';
 export type { Asset4 } from './models/asset4';
-export * from './models/containers/fetchAssetMetadataResponse';
 export type { CryptoData } from './models/cryptoData';
 export type { Datum } from './models/datum';
 export type { DetailedBalance } from './models/detailedBalance';
@@ -49,3 +49,4 @@ export type { WalletNFTsResponse } from './models/walletNFTsResponse';
 export type { WalletNftsResponse1 } from './models/walletNftsResponse1';
 export type { WalletPortfolioResponse } from './models/walletPortfolioResponse';
 export type { WalletTransactionsResponse } from './models/walletTransactionsResponse';
+export * from './models/containers/fetchAssetMetadataResponse';

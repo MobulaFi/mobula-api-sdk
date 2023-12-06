@@ -7,14 +7,12 @@
 import { number, object, optional, Schema, string } from '../schema';
 
 export interface Token0 {
-  reserve?: string;
   address?: string;
   price?: number;
   priceToken?: number;
 }
 
 export const token0Schema: Schema<Token0> = object({
-  reserve: ['reserve', optional(string())],
   address: ['address', optional(string())],
   price: ['price', optional(number())],
   priceToken: ['priceToken', optional(number())],

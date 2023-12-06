@@ -6,8 +6,8 @@
 import { Environment } from './configuration';
 /** Default values for the configuration parameters of the client. */
 export const DEFAULT_CONFIGURATION = {
-    apiKey: '',
     timeout: 0,
+    apiKey: '',
     environment: Environment.Production,
 };
 /** Default values for retry configuration parameters. */

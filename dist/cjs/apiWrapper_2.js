@@ -46,7 +46,7 @@ var Mobula = /** @class */ (function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiController.fetchAssetMarketData(options.asset, options.blockchain, options.requestOptions)];
+                    case 0: return [4 /*yield*/, this.apiController.fetchAssetMarketData(options.asset, options.blockchain, options.symbol, options.requestOptions)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -86,7 +86,7 @@ var Mobula = /** @class */ (function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiController.fetchAssetMetadata(options.asset, options.requestOptions)];
+                    case 0: return [4 /*yield*/, this.apiController.fetchAssetMetadata(options.asset, options.blockchain, options.requestOptions)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -106,7 +106,7 @@ var Mobula = /** @class */ (function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiController.fetchMultipleAssetMarketData(options.assets, options.blockchains, options.requestOptions)];
+                    case 0: return [4 /*yield*/, this.apiController.fetchMultipleAssetMarketData(options.assets, options.blockchains, options.symbols, options.requestOptions)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

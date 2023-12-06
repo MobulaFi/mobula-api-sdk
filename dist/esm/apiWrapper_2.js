@@ -18,7 +18,7 @@ class Mobula {
         return await this.apiController.fetchAllCryptoDetails(options.fields, options.requestOptions);
     }
     async fetchAssetMarketData(options) {
-        return await this.apiController.fetchAssetMarketData(options.asset, options.blockchain, options.requestOptions);
+        return await this.apiController.fetchAssetMarketData(options.asset, options.blockchain, options.symbol, options.requestOptions);
     }
     async fetchPairMarketData(options) {
         return await this.apiController.fetchPairMarketData(options.address, options.blockchain, options.asset, options.requestOptions);
@@ -30,13 +30,13 @@ class Mobula {
         return await this.apiController.fetchAssetMarketHistory(options.asset, options.blockchain, options.from, options.to, options.requestOptions);
     }
     async fetchAssetMetadata(options) {
-        return await this.apiController.fetchAssetMetadata(options.asset, options.requestOptions);
+        return await this.apiController.fetchAssetMetadata(options.asset, options.blockchain, options.requestOptions);
     }
     async fetchAssetTradeHistory(options) {
         return await this.apiController.fetchAssetTradeHistory(options.asset, options.maxResults, options.requestOptions);
     }
     async fetchMultipleAssetMarketData(options) {
-        return await this.apiController.fetchMultipleAssetMarketData(options.assets, options.blockchains, options.requestOptions);
+        return await this.apiController.fetchMultipleAssetMarketData(options.assets, options.blockchains, options.symbols, options.requestOptions);
     }
     async fetchSwapQuote(options) {
         return await this.apiController.fetchSwapQuote(options.chain, options.fromToken, options.toToken, options.fromAddress, options.amount, options.slippage, options.receiver, options.type, options.requestOptions);

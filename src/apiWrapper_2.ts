@@ -51,13 +51,15 @@ class Mobula {
   }
 
   public async fetchAssetMarketData(options: {
-    asset: string;
+    asset?: string;
     blockchain?: string;
+    symbol?: string;
     requestOptions?: RequestOptions;
   }) {
     return await this.apiController.fetchAssetMarketData(
       options.asset,
       options.blockchain,
+      options.symbol,
       options.requestOptions
     );
   }
@@ -107,11 +109,13 @@ class Mobula {
   }
 
   public async fetchAssetMetadata(options: {
-    asset?: string;
+    asset: string;
+    blockchain?: string;
     requestOptions?: RequestOptions;
   }) {
     return await this.apiController.fetchAssetMetadata(
       options.asset,
+      options.blockchain,
       options.requestOptions
     );
   }
@@ -129,13 +133,15 @@ class Mobula {
   }
 
   public async fetchMultipleAssetMarketData(options: {
-    assets: string;
+    assets?: string;
     blockchains?: string;
+    symbols?: string;
     requestOptions?: RequestOptions;
   }) {
     return await this.apiController.fetchMultipleAssetMarketData(
       options.assets,
       options.blockchains,
+      options.symbols,
       options.requestOptions
     );
   }

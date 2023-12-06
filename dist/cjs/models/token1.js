@@ -8,7 +8,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.token1Schema = void 0;
 var schema_1 = require("../schema");
 exports.token1Schema = (0, schema_1.object)({
-    reserve: ['reserve', (0, schema_1.optional)((0, schema_1.string)())],
     address: ['address', (0, schema_1.optional)((0, schema_1.string)())],
     name: ['name', (0, schema_1.optional)((0, schema_1.string)())],
     price: ['price', (0, schema_1.optional)((0, schema_1.number)())],

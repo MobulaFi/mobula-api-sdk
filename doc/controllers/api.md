@@ -14,6 +14,8 @@ const apiController = new ApiController(client);
 * [Fetch Wallet NF Ts](../../doc/controllers/api.md#fetch-wallet-nf-ts)
 * [Fetch All Crypto Details](../../doc/controllers/api.md#fetch-all-crypto-details)
 * [Fetch Asset Market Data](../../doc/controllers/api.md#fetch-asset-market-data)
+* [Fetch Pair Market Data](../../doc/controllers/api.md#fetch-pair-market-data)
+* [Fetch Pairs Market Data](../../doc/controllers/api.md#fetch-pairs-market-data)
 * [Fetch Asset Market History](../../doc/controllers/api.md#fetch-asset-market-history)
 * [Fetch Multiple Asset Market Data](../../doc/controllers/api.md#fetch-multiple-asset-market-data)
 * [Fetch Asset Trade History](../../doc/controllers/api.md#fetch-asset-trade-history)
@@ -72,6 +74,7 @@ try {
 async fetchWalletNFTs(
   wallet?: string,
   force?: boolean,
+  blockchains?: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<WalletNftsResponse1>>
 ```
@@ -82,6 +85,7 @@ async fetchWalletNFTs(
 |  --- | --- | --- | --- |
 | `wallet` | `string \| undefined` | Query, Optional | Wallet address or ENS or Mobula username |
 | `force` | `boolean \| undefined` | Query, Optional | Will force a new on-chain data fetch |
+| `blockchains` | `string \| undefined` | Query, Optional | Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or chain name |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -95,12 +99,15 @@ const wallet = '0x554efD74C693999bABf7CC0f5646D465A31b32CB';
 
 const force = true;
 
+const blockchains = '56,Ethereum';
+
 try {
   // @ts-expect-error: unused variables
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { result, ...httpResponse } = await apiController.fetchWalletNFTs(
   wallet,
-  force
+  force,
+  blockchains
 );
   // Get more response info...
   // const { statusCode, headers } = httpResponse;
@@ -161,8 +168,9 @@ try {
 
 ```ts
 async fetchAssetMarketData(
-  asset: string,
+  asset?: string,
   blockchain?: string,
+  symbol?: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<MarketDataResponse1>>
 ```
@@ -171,8 +179,9 @@ async fetchAssetMarketData(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `asset` | `string` | Query, Required | The asset you want to target - asset name only works for assets listed on Mobula. |
+| `asset` | `string \| undefined` | Query, Optional | The asset you want to target - asset name only works for assets listed on Mobula. |
 | `blockchain` | `string \| undefined` | Query, Optional | Blockchain of the asset - only mandatory if asset is sent as smart-contract. |
+| `symbol` | `string \| undefined` | Query, Optional | Symbol of the asset - only mandatory if no asset name/contract is provided |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -184,10 +193,114 @@ async fetchAssetMarketData(
 ```ts
 const asset = 'Bitcoin';
 
+const symbol = 'BTC';
+
 try {
   // @ts-expect-error: unused variables
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { result, ...httpResponse } = await apiController.fetchAssetMarketData(asset);
+  const { result, ...httpResponse } = await apiController.fetchAssetMarketData(
+  asset,
+  undefined,
+  symbol
+);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch (error) {
+  if (error instanceof ApiError) {
+    // @ts-expect-error: unused variables
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
+```
+
+
+# Fetch Pair Market Data
+
+```ts
+async fetchPairMarketData(
+  address: string,
+  blockchain?: string,
+  asset?: unknown,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<MarketPairResponse>>
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `address` | `string` | Query, Required | The address of the smart-contract of the pair (or pool, or vault). |
+| `blockchain` | `string \| undefined` | Query, Optional | Blockchain of the pair (only mandatory for Balancer V2 pairs). |
+| `asset` | `unknown \| undefined` | Query, Optional | The name/address of the asset you want in return |
+| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
+
+## Response Type
+
+[`MarketPairResponse`](../../doc/models/market-pair-response.md)
+
+## Example Usage
+
+```ts
+const address = 'address6';
+
+try {
+  // @ts-expect-error: unused variables
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { result, ...httpResponse } = await apiController.fetchPairMarketData(address);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch (error) {
+  if (error instanceof ApiError) {
+    // @ts-expect-error: unused variables
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
+```
+
+
+# Fetch Pairs Market Data
+
+```ts
+async fetchPairsMarketData(
+  asset: string,
+  blockchain?: string,
+  offset?: number,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<MarketPairsResponse>>
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `asset` | `string` | Query, Required | The asset you want to target - asset name only works for assets listed on Mobula. |
+| `blockchain` | `string \| undefined` | Query, Optional | Blockchain of the asset - only mandatory if asset is sent as smart-contract. |
+| `offset` | `number \| undefined` | Query, Optional | The offset of the results |
+| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
+
+## Response Type
+
+[`MarketPairsResponse`](../../doc/models/market-pairs-response.md)
+
+## Example Usage
+
+```ts
+const asset = 'Bitcoin';
+
+const offset = 0;
+
+try {
+  // @ts-expect-error: unused variables
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { result, ...httpResponse } = await apiController.fetchPairsMarketData(
+  asset,
+  undefined,
+  offset
+);
   // Get more response info...
   // const { statusCode, headers } = httpResponse;
 } catch (error) {
@@ -253,8 +366,9 @@ try {
 
 ```ts
 async fetchMultipleAssetMarketData(
-  assets: string,
+  assets?: string,
   blockchains?: string,
+  symbols?: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<Record<string, MarketMetrics>>>
 ```
@@ -263,8 +377,9 @@ async fetchMultipleAssetMarketData(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `assets` | `string` | Query, Required | Comma separated list of asset names or Ethereum addresses (max 50) |
+| `assets` | `string \| undefined` | Query, Optional | Comma separated list of asset names or Ethereum addresses (max 500) |
 | `blockchains` | `string \| undefined` | Query, Optional | Comma separated list of blockchain names |
+| `symbols` | `string \| undefined` | Query, Optional | Comma separated list of symbols |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -274,12 +389,10 @@ async fetchMultipleAssetMarketData(
 ## Example Usage
 
 ```ts
-const assets = 'assets8';
-
 try {
   // @ts-expect-error: unused variables
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { result, ...httpResponse } = await apiController.fetchMultipleAssetMarketData(assets);
+  const { result, ...httpResponse } = await apiController.fetchMultipleAssetMarketData();
   // Get more response info...
   // const { statusCode, headers } = httpResponse;
 } catch (error) {
@@ -358,7 +471,8 @@ try {
 
 ```ts
 async fetchAssetMetadata(
-  asset?: string,
+  asset: string,
+  blockchain?: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<FetchAssetMetadataResponse>>
 ```
@@ -367,7 +481,8 @@ async fetchAssetMetadata(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `asset` | `string \| undefined` | Query, Optional | Name or contract address of the asset |
+| `asset` | `string` | Query, Required | Name or contract address of the asset |
+| `blockchain` | `string \| undefined` | Query, Optional | Blockchain of the asset |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -379,10 +494,15 @@ async fetchAssetMetadata(
 ```ts
 const asset = 'Bitcoin';
 
+const blockchain = 'Ethereum';
+
 try {
   // @ts-expect-error: unused variables
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { result, ...httpResponse } = await apiController.fetchAssetMetadata(asset);
+  const { result, ...httpResponse } = await apiController.fetchAssetMetadata(
+  asset,
+  blockchain
+);
   if (FetchAssetMetadataResponse.isAsset(result)) {
       // Use the result narrowed down to Asset type.
   } else if (FetchAssetMetadataResponse.isArrayOfAsset(result)) {
@@ -489,6 +609,7 @@ async fetchWalletHistoryBalance(
   wallet: string,
   from?: number,
   to?: number,
+  blockchains?: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<WalletHistoryResponse>>
 ```
@@ -500,6 +621,7 @@ async fetchWalletHistoryBalance(
 | `wallet` | `string` | Query, Required | The user wallet queried |
 | `from` | `number \| undefined` | Query, Optional | JS Timestamp (miliseconds) of the beginning of the timeframe (if not provided, genesis) |
 | `to` | `number \| undefined` | Query, Optional | JS Timestamp (miliseconds) of the end of the timeframe (if not provided, end) |
+| `blockchains` | `string \| undefined` | Query, Optional | Blockchains to fetch history from (by default, all) - comma separated, chain ID or chain name |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -509,12 +631,19 @@ async fetchWalletHistoryBalance(
 ## Example Usage
 
 ```ts
-const wallet = '0xE7dBE6aa7Edcc38CB5007B87153d236AD879309B';
+const wallet = '0xf23b38099188fd5892346104bBEF2F1c11D10244';
+
+const blockchains = '56,Ethereum';
 
 try {
   // @ts-expect-error: unused variables
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { result, ...httpResponse } = await apiController.fetchWalletHistoryBalance(wallet);
+  const { result, ...httpResponse } = await apiController.fetchWalletHistoryBalance(
+  wallet,
+  undefined,
+  undefined,
+  blockchains
+);
   // Get more response info...
   // const { statusCode, headers } = httpResponse;
 } catch (error) {
@@ -533,12 +662,9 @@ try {
 ```ts
 async fetchWalletHoldings(
   wallet: string,
-  timestamp?: number,
-  asset?: string,
-  blockchain?: string,
-  tokens?: boolean,
-  nfts?: boolean,
-  coins?: boolean,
+  blockchains?: string,
+  cache?: boolean,
+  stale?: number,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<WalletPortfolioResponse>>
 ```
@@ -548,12 +674,9 @@ async fetchWalletHoldings(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `wallet` | `string` | Query, Required | The user wallet queried |
-| `timestamp` | `number \| undefined` | Query, Optional | ISO Date string from which you want to start receiving transactions - NOW by default |
-| `asset` | `string \| undefined` | Query, Optional | The asset you want to target (empty if you want general portfolio) |
-| `blockchain` | `string \| undefined` | Query, Optional | The blockchain you want to target (empty if you want general transactions) |
-| `tokens` | `boolean \| undefined` | Query, Optional | true if tokens included (true by default) |
-| `nfts` | `boolean \| undefined` | Query, Optional | true if nfts included (false by default) |
-| `coins` | `boolean \| undefined` | Query, Optional | true if coins included (true by default) |
+| `blockchains` | `string \| undefined` | Query, Optional | Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or chain name |
+| `cache` | `boolean \| undefined` | Query, Optional | Will use cached data if available |
+| `stale` | `number \| undefined` | Query, Optional | amount of seconds after which the cache is considered stale (default 5min) |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -563,12 +686,17 @@ async fetchWalletHoldings(
 ## Example Usage
 
 ```ts
-const wallet = '0xE7dBE6aa7Edcc38CB5007B87153d236AD879309B';
+const wallet = '0xf23b38099188fd5892346104bBEF2F1c11D10244';
+
+const blockchains = '56,Ethereum';
 
 try {
   // @ts-expect-error: unused variables
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { result, ...httpResponse } = await apiController.fetchWalletHoldings(wallet);
+  const { result, ...httpResponse } = await apiController.fetchWalletHoldings(
+  wallet,
+  blockchains
+);
   // Get more response info...
   // const { statusCode, headers } = httpResponse;
 } catch (error) {
@@ -590,9 +718,7 @@ async fetchWalletTransactions(
   from?: number,
   to?: number,
   asset?: string,
-  blockchain?: string,
-  trades?: boolean,
-  transactions?: boolean,
+  blockchains?: string,
   limit?: number,
   offset?: number,
   order?: OrderEnum,
@@ -608,9 +734,7 @@ async fetchWalletTransactions(
 | `from` | `number \| undefined` | Query, Optional | ISO Date string OR Timestamp from which you want to start receiving transactions |
 | `to` | `number \| undefined` | Query, Optional | ISO Date string OR Timestamp until which you want to receive transactions |
 | `asset` | `string \| undefined` | Query, Optional | The asset you want to target, use the asset's name (empty if you want general transactions) |
-| `blockchain` | `string \| undefined` | Query, Optional | The blockchain you want to target (empty if you want general transactions) |
-| `trades` | `boolean \| undefined` | Query, Optional | true if trades included (true by default) |
-| `transactions` | `boolean \| undefined` | Query, Optional | true if non-trades transactions included (true by default) |
+| `blockchains` | `string \| undefined` | Query, Optional | Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or chain name |
 | `limit` | `number \| undefined` | Query, Optional | Number of transactions to return (100 by default)<br>**Default**: `100` |
 | `offset` | `number \| undefined` | Query, Optional | Number of pages to skip (0 by default) - limit * offset = number of transactions to skip<br>**Default**: `0` |
 | `order` | [`OrderEnum \| undefined`](../../doc/models/order-enum.md) | Query, Optional | Order in which transactions should be sorted. Use 'asc' for ascending and 'desc' for descending.<br>**Default**: `OrderEnum.Asc` |
@@ -623,7 +747,9 @@ async fetchWalletTransactions(
 ## Example Usage
 
 ```ts
-const wallet = '0xE7dBE6aa7Edcc38CB5007B87153d236AD879309B';
+const wallet = '0xf23b38099188fd5892346104bBEF2F1c11D10244';
+
+const blockchains = '56,Ethereum';
 
 const limit = 100;
 
@@ -639,9 +765,7 @@ try {
   undefined,
   undefined,
   undefined,
-  undefined,
-  undefined,
-  undefined,
+  blockchains,
   limit,
   offset,
   order

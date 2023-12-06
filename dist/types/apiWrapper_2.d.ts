@@ -21,8 +21,9 @@ declare class Mobula {
         requestOptions?: RequestOptions;
     }): Promise<ApiResponse<import(".").AllResponse>>;
     fetchAssetMarketData(options: {
-        asset: string;
+        asset?: string;
         blockchain?: string;
+        symbol?: string;
         requestOptions?: RequestOptions;
     }): Promise<ApiResponse<import(".").MarketDataResponse1>>;
     fetchPairMarketData(options: {
@@ -45,7 +46,8 @@ declare class Mobula {
         requestOptions?: RequestOptions;
     }): Promise<ApiResponse<import(".").MarketHistoryResponse>>;
     fetchAssetMetadata(options: {
-        asset?: string;
+        asset: string;
+        blockchain?: string;
         requestOptions?: RequestOptions;
     }): Promise<ApiResponse<import(".").FetchAssetMetadataResponse>>;
     fetchAssetTradeHistory(options: {
@@ -54,8 +56,9 @@ declare class Mobula {
         requestOptions?: RequestOptions;
     }): Promise<ApiResponse<import(".").TradeHistoryItem[]>>;
     fetchMultipleAssetMarketData(options: {
-        assets: string;
+        assets?: string;
         blockchains?: string;
+        symbols?: string;
         requestOptions?: RequestOptions;
     }): Promise<ApiResponse<Record<string, import(".").MarketMetrics>>>;
     fetchSwapQuote(options: {

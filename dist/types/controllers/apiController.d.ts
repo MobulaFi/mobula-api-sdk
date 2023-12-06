@@ -43,9 +43,10 @@ export declare class ApiController extends BaseController {
     /**
      * @param asset      The asset you want to target - asset name only works for assets listed on Mobula.
      * @param blockchain Blockchain of the asset - only mandatory if asset is sent as smart-contract.
+     * @param symbol     Symbol of the asset - only mandatory if no asset name/contract is provided
      * @return Response from the API call
      */
-    fetchAssetMarketData(asset: string, blockchain?: string, requestOptions?: RequestOptions): Promise<ApiResponse<MarketDataResponse1>>;
+    fetchAssetMarketData(asset?: string, blockchain?: string, symbol?: string, requestOptions?: RequestOptions): Promise<ApiResponse<MarketDataResponse1>>;
     /**
      * @param address    The address of the smart-contract of the pair (or pool, or vault).
      * @param blockchain Blockchain of the pair (only mandatory for Balancer V2 pairs).
@@ -72,9 +73,10 @@ export declare class ApiController extends BaseController {
     /**
      * @param assets      Comma separated list of asset names or Ethereum addresses (max 500)
      * @param blockchains Comma separated list of blockchain names
+     * @param symbols     Comma separated list of symbols
      * @return Response from the API call
      */
-    fetchMultipleAssetMarketData(assets: string, blockchains?: string, requestOptions?: RequestOptions): Promise<ApiResponse<Record<string, MarketMetrics>>>;
+    fetchMultipleAssetMarketData(assets?: string, blockchains?: string, symbols?: string, requestOptions?: RequestOptions): Promise<ApiResponse<Record<string, MarketMetrics>>>;
     /**
      * @param asset      Asset name or contract address to retrieve trade history for.
      * @param maxResults Maximum number of results to return.
@@ -82,10 +84,11 @@ export declare class ApiController extends BaseController {
      */
     fetchAssetTradeHistory(asset: string, maxResults?: number, requestOptions?: RequestOptions): Promise<ApiResponse<TradeHistoryItem[]>>;
     /**
-     * @param asset Name or contract address of the asset
+     * @param asset      Name or contract address of the asset
+     * @param blockchain Blockchain of the asset
      * @return Response from the API call
      */
-    fetchAssetMetadata(asset?: string, requestOptions?: RequestOptions): Promise<ApiResponse<FetchAssetMetadataResponse>>;
+    fetchAssetMetadata(asset: string, blockchain?: string, requestOptions?: RequestOptions): Promise<ApiResponse<FetchAssetMetadataResponse>>;
     /**
      * @param chain       Blockchain of the trade
      * @param fromToken   Source token for the swap

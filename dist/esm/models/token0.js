@@ -5,7 +5,6 @@
  */
 import { number, object, optional, string } from '../schema';
 export const token0Schema = object({
-    reserve: ['reserve', optional(string())],
     address: ['address', optional(string())],
     price: ['price', optional(number())],
     priceToken: ['priceToken', optional(number())],

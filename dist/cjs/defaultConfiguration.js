@@ -9,8 +9,8 @@ exports.DEFAULT_RETRY_CONFIG = exports.DEFAULT_CONFIGURATION = void 0;
 var configuration_1 = require("./configuration");
 /** Default values for the configuration parameters of the client. */
 exports.DEFAULT_CONFIGURATION = {
-    apiKey: '',
     timeout: 0,
+    apiKey: '',
     environment: configuration_1.Environment.Production,
 };
 /** Default values for retry configuration parameters. */

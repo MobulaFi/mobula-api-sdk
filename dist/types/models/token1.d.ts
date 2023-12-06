@@ -5,7 +5,6 @@
  */
 import { Schema } from '../schema';
 export interface Token1 {
-    reserve?: string;
     address?: string;
     name?: string;
     price?: number;
