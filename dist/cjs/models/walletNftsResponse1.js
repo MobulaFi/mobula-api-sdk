@@ -7,8 +7,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.walletNftsResponse1Schema = void 0;
 var schema_1 = require("../schema");
-var datum_1 = require("./datum");
+var data6_1 = require("./data6");
 exports.walletNftsResponse1Schema = (0, schema_1.object)({
-    data: ['data', (0, schema_1.optional)((0, schema_1.array)((0, schema_1.lazy)(function () { return datum_1.datumSchema; })))],
+    data: ['data', (0, schema_1.optional)((0, schema_1.array)((0, schema_1.lazy)(function () { return data6_1.data6Schema; })))],
 });
 //# sourceMappingURL=walletNftsResponse1.js.map

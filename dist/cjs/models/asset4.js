@@ -7,14 +7,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.asset4Schema = void 0;
 var schema_1 = require("../schema");
-var asset1_1 = require("./asset1");
 exports.asset4Schema = (0, schema_1.object)({
-    allocation: ['allocation', (0, schema_1.optional)((0, schema_1.number)())],
-    asset: ['asset', (0, schema_1.optional)((0, schema_1.lazy)(function () { return asset1_1.asset1Schema; }))],
-    balance: ['balance', (0, schema_1.optional)((0, schema_1.number)())],
-    estimatedBalance: ['estimated_balance', (0, schema_1.optional)((0, schema_1.number)())],
-    price: ['price', (0, schema_1.optional)((0, schema_1.number)())],
-    priceBought: ['price_bought', (0, schema_1.optional)((0, schema_1.number)())],
-    roi: ['roi', (0, schema_1.optional)((0, schema_1.number)())],
+    name: ['name', (0, schema_1.optional)((0, schema_1.string)())],
+    symbol: ['symbol', (0, schema_1.optional)((0, schema_1.string)())],
+    id: ['id', (0, schema_1.optional)((0, schema_1.number)())],
+    contracts: ['contracts', (0, schema_1.optional)((0, schema_1.array)((0, schema_1.string)()))],
+    logo: ['logo', (0, schema_1.optional)((0, schema_1.string)())],
 });
 //# sourceMappingURL=asset4.js.map

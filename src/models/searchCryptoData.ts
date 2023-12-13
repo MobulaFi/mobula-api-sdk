@@ -16,35 +16,23 @@ import {
 } from '../schema';
 
 export interface SearchCryptoData {
-  /** The blockchains on which the cryptocurrency exists */
   blockchains?: string[];
-  /** The contracts associated with the cryptocurrency */
-  contracts?: string[];
-  /** The unique identifier of the cryptocurrency */
+  contracts?: (string | null)[];
   id?: number;
-  /** The liquidity of the cryptocurrency */
   liquidity?: bigint;
-  /** The logo of the cryptocurrency */
   logo?: string;
-  /** The market cap of the cryptocurrency */
   marketCap?: bigint;
-  /** The name of the cryptocurrency */
   name?: string;
-  /** The price of the cryptocurrency */
   price?: number;
-  /** The symbol of the cryptocurrency */
   symbol?: string;
-  /** The Twitter link of the cryptocurrency */
   twitter?: string | null;
-  /** The volume of the cryptocurrency */
   volume?: bigint;
-  /** The website of the cryptocurrency */
   website?: string | null;
 }
 
 export const searchCryptoDataSchema: Schema<SearchCryptoData> = object({
   blockchains: ['blockchains', optional(array(string()))],
-  contracts: ['contracts', optional(array(string()))],
+  contracts: ['contracts', optional(array(nullable(string())))],
   id: ['id', optional(number())],
   liquidity: ['liquidity', optional(bigint())],
   logo: ['logo', optional(string())],

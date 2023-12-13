@@ -9,36 +9,59 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `transactions` | [`Transaction[] \| undefined`](../../doc/models/transaction.md) | Optional | - |
+| `data` | [`Data9 \| undefined`](../../doc/models/data-9.md) | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "transactions": [
-    {
-      "amount": 157.0,
-      "asset": {
-        "id": 240,
-        "name": "name0",
-        "symbol": "symbol2"
+  "data": {
+    "transactions": [
+      {
+        "timestamp": 48,
+        "asset": {
+          "name": "name0",
+          "symbol": "symbol2",
+          "id": 240,
+          "contract": "contract0",
+          "logo": "logo6"
+        },
+        "type": "type2",
+        "method_id": "method_id2",
+        "hash": "hash4"
       },
-      "from": "from4",
-      "timestamp": 48,
-      "to": "to2"
-    },
-    {
-      "amount": 157.0,
-      "asset": {
-        "id": 240,
-        "name": "name0",
-        "symbol": "symbol2"
+      {
+        "timestamp": 48,
+        "asset": {
+          "name": "name0",
+          "symbol": "symbol2",
+          "id": 240,
+          "contract": "contract0",
+          "logo": "logo6"
+        },
+        "type": "type2",
+        "method_id": "method_id2",
+        "hash": "hash4"
       },
-      "from": "from4",
-      "timestamp": 48,
-      "to": "to2"
-    }
-  ]
+      {
+        "timestamp": 48,
+        "asset": {
+          "name": "name0",
+          "symbol": "symbol2",
+          "id": 240,
+          "contract": "contract0",
+          "logo": "logo6"
+        },
+        "type": "type2",
+        "method_id": "method_id2",
+        "hash": "hash4"
+      }
+    ],
+    "total": 16,
+    "offset": 242,
+    "limit": 110,
+    "page": 10.28
+  }
 }
 ```
 

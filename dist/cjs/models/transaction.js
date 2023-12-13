@@ -7,12 +7,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.transactionSchema = void 0;
 var schema_1 = require("../schema");
-var asset1_1 = require("./asset1");
+var assetTransaction_1 = require("./assetTransaction");
 exports.transactionSchema = (0, schema_1.object)({
-    amount: ['amount', (0, schema_1.optional)((0, schema_1.number)())],
-    asset: ['asset', (0, schema_1.optional)((0, schema_1.lazy)(function () { return asset1_1.asset1Schema; }))],
-    from: ['from', (0, schema_1.optional)((0, schema_1.string)())],
     timestamp: ['timestamp', (0, schema_1.optional)((0, schema_1.number)())],
+    asset: ['asset', (0, schema_1.optional)((0, schema_1.lazy)(function () { return assetTransaction_1.assetTransactionSchema; }))],
+    type: ['type', (0, schema_1.optional)((0, schema_1.string)())],
+    methodId: ['method_id', (0, schema_1.optional)((0, schema_1.nullable)((0, schema_1.string)()))],
+    hash: ['hash', (0, schema_1.optional)((0, schema_1.string)())],
+    blockchain: ['blockchain', (0, schema_1.optional)((0, schema_1.string)())],
+    amount: ['amount', (0, schema_1.optional)((0, schema_1.number)())],
+    amountUsd: ['amount_usd', (0, schema_1.optional)((0, schema_1.number)())],
     to: ['to', (0, schema_1.optional)((0, schema_1.string)())],
+    from: ['from', (0, schema_1.optional)((0, schema_1.string)())],
+    txCost: ['tx_cost', (0, schema_1.optional)((0, schema_1.number)())],
 });
 //# sourceMappingURL=transaction.js.map

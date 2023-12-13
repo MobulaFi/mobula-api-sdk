@@ -7,6 +7,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.walletPortfolioResponseSchema = void 0;
 var schema_1 = require("../schema");
-var asset4_1 = require("./asset4");
-exports.walletPortfolioResponseSchema = (0, schema_1.object)({ assets: ['assets', (0, schema_1.optional)((0, schema_1.array)((0, schema_1.lazy)(function () { return asset4_1.asset4Schema; })))] });
+var data5_1 = require("./data5");
+exports.walletPortfolioResponseSchema = (0, schema_1.object)({ data: ['data', (0, schema_1.optional)((0, schema_1.lazy)(function () { return data5_1.data5Schema; }))] });
 //# sourceMappingURL=walletPortfolioResponse.js.map

@@ -9,18 +9,18 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `blockchains` | `string[] \| undefined` | Optional | The blockchains on which the cryptocurrency exists |
-| `contracts` | `string[] \| undefined` | Optional | The contracts associated with the cryptocurrency |
-| `id` | `number \| undefined` | Optional | The unique identifier of the cryptocurrency |
-| `liquidity` | `bigint \| undefined` | Optional | The liquidity of the cryptocurrency |
-| `logo` | `string \| undefined` | Optional | The logo of the cryptocurrency |
-| `marketCap` | `bigint \| undefined` | Optional | The market cap of the cryptocurrency |
-| `name` | `string \| undefined` | Optional | The name of the cryptocurrency |
-| `price` | `number \| undefined` | Optional | The price of the cryptocurrency |
-| `symbol` | `string \| undefined` | Optional | The symbol of the cryptocurrency |
-| `twitter` | `string \| null \| undefined` | Optional | The Twitter link of the cryptocurrency |
-| `volume` | `bigint \| undefined` | Optional | The volume of the cryptocurrency |
-| `website` | `string \| null \| undefined` | Optional | The website of the cryptocurrency |
+| `blockchains` | `string[] \| undefined` | Optional | - |
+| `contracts` | `(string \| null)[] \| undefined` | Optional | - |
+| `id` | `number \| undefined` | Optional | - |
+| `liquidity` | `bigint \| undefined` | Optional | - |
+| `logo` | `string \| undefined` | Optional | - |
+| `marketCap` | `bigint \| undefined` | Optional | - |
+| `name` | `string \| undefined` | Optional | - |
+| `price` | `number \| undefined` | Optional | - |
+| `symbol` | `string \| undefined` | Optional | - |
+| `twitter` | `string \| null \| undefined` | Optional | - |
+| `volume` | `bigint \| undefined` | Optional | - |
+| `website` | `string \| null \| undefined` | Optional | - |
 
 ## Example (as JSON)
 
@@ -30,7 +30,8 @@
     "Ethereum"
   ],
   "contracts": [
-    "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
+    "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+    "contracts2"
   ],
   "id": 100001656,
   "liquidity": 626115369,

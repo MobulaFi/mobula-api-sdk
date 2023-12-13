@@ -23,6 +23,11 @@
       ],
       "id": 138,
       "name": "name0",
+      "contracts": [
+        "contracts3",
+        "contracts2",
+        "contracts1"
+      ],
       "symbol": "symbol2"
     },
     {
@@ -32,6 +37,11 @@
       ],
       "id": 138,
       "name": "name0",
+      "contracts": [
+        "contracts3",
+        "contracts2",
+        "contracts1"
+      ],
       "symbol": "symbol2"
     },
     {
@@ -41,6 +51,11 @@
       ],
       "id": 138,
       "name": "name0",
+      "contracts": [
+        "contracts3",
+        "contracts2",
+        "contracts1"
+      ],
       "symbol": "symbol2"
     }
   ]

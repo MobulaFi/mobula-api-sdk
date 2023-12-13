@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `data` | [`MarketDataPairResponse \| undefined`](../../doc/models/market-data-pair-response.md) | Optional | - |
+| `data` | [`Pair \| undefined`](../../doc/models/pair.md) | Optional | - |
 
 ## Example (as JSON)
 
@@ -18,6 +18,7 @@
   "data": {
     "token0": {
       "address": "address6",
+      "name": "name0",
       "price": 11.32,
       "priceToken": 134.58
     },

@@ -9,20 +9,20 @@ exports.ApiController = void 0;
 var tslib_1 = require("tslib");
 var errorResponseError_1 = require("../errors/errorResponseError");
 var allResponse_1 = require("../models/allResponse");
-var fetchAssetMetadataResponse_1 = require("../models/containers/fetchAssetMetadataResponse");
-var marketDataResponse1_1 = require("../models/marketDataResponse1");
+var asset_1 = require("../models/asset");
+var marketDataResponse_1 = require("../models/marketDataResponse");
 var marketHistoryResponse_1 = require("../models/marketHistoryResponse");
-var marketMetrics_1 = require("../models/marketMetrics");
 var marketPairResponse_1 = require("../models/marketPairResponse");
 var marketPairsResponse_1 = require("../models/marketPairsResponse");
+var multiDataResponse_1 = require("../models/multiDataResponse");
 var orderEnum_1 = require("../models/orderEnum");
 var quoteResponse1_1 = require("../models/quoteResponse1");
 var searchResponse_1 = require("../models/searchResponse");
-var tradeHistoryItem_1 = require("../models/tradeHistoryItem");
+var tradeHistoryResponse_1 = require("../models/tradeHistoryResponse");
 var typeEnum_1 = require("../models/typeEnum");
 var walletHistoryResponse_1 = require("../models/walletHistoryResponse");
 var walletNftsResponse1_1 = require("../models/walletNftsResponse1");
-var walletPortfolioResponse_1 = require("../models/walletPortfolioResponse");
+var walletPortfolioResponse1_1 = require("../models/walletPortfolioResponse1");
 var walletTransactionsResponse_1 = require("../models/walletTransactionsResponse");
 var schema_1 = require("../schema");
 var baseController_1 = require("./baseController");
@@ -35,7 +35,7 @@ var ApiController = /** @class */ (function (_super) {
      * @param name Name or symbol (or starting name/symbol) of the asset
      * @return Response from the API call
      */
-    ApiController.prototype.fetchCryptoDataByName = function (name, requestOptions) {
+    ApiController.prototype.searchCryptoByName = function (name, requestOptions) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             var req, mapped;
             return tslib_1.__generator(this, function (_a) {
@@ -104,7 +104,7 @@ var ApiController = /** @class */ (function (_super) {
                 req.query('asset', mapped.asset);
                 req.query('blockchain', mapped.blockchain);
                 req.query('symbol', mapped.symbol);
-                return [2 /*return*/, req.callAsJson(marketDataResponse1_1.marketDataResponse1Schema, requestOptions)];
+                return [2 /*return*/, req.callAsJson(marketDataResponse_1.marketDataResponseSchema, requestOptions)];
             });
         });
     };
@@ -157,9 +157,9 @@ var ApiController = /** @class */ (function (_super) {
     /**
      * @param asset      The asset you want to target - asset name only works for assets listed on Mobula.
      * @param blockchain Blockchain of the asset - only mandatory if asset is sent as smart-contract.
-     * @param from       JS Timestamp (miliseconds) of the beginning of the timeframe (if not provided,
+     * @param from       JS Timestamp (milliseconds) of the beginning of the timeframe (if not provided,
      *                             genesis)
-     * @param to         JS Timestamp (miliseconds) of the end of the timeframe (if not provided, end)
+     * @param to         JS Timestamp (milliseconds) of the end of the timeframe (if not provided, end)
      * @return Response from the API call
      */
     ApiController.prototype.fetchAssetMarketHistory = function (asset, blockchain, from, to, requestOptions) {
@@ -200,8 +200,8 @@ var ApiController = /** @class */ (function (_super) {
                 req.query('assets', mapped.assets);
                 req.query('blockchains', mapped.blockchains);
                 req.query('symbols', mapped.symbols);
-                req.throwOn(400, errorResponseError_1.ErrorResponseError, 'Invalid input - too many assets or invalid blockchain name');
-                return [2 /*return*/, req.callAsJson((0, schema_1.dict)(marketMetrics_1.marketMetricsSchema), requestOptions)];
+                req.throwOn(400, errorResponseError_1.ErrorResponseError, 'Bad request response.');
+                return [2 /*return*/, req.callAsJson(multiDataResponse_1.multiDataResponseSchema, requestOptions)];
             });
         });
     };
@@ -222,7 +222,7 @@ var ApiController = /** @class */ (function (_super) {
                 req.query('asset', mapped.asset);
                 req.query('maxResults', mapped.maxResults);
                 req.throwOn(400, errorResponseError_1.ErrorResponseError, 'Bad request (e.g., missing asset parameter)');
-                return [2 /*return*/, req.callAsJson((0, schema_1.array)(tradeHistoryItem_1.tradeHistoryItemSchema), requestOptions)];
+                return [2 /*return*/, req.callAsJson(tradeHistoryResponse_1.tradeHistoryResponseSchema, requestOptions)];
             });
         });
     };
@@ -242,7 +242,7 @@ var ApiController = /** @class */ (function (_super) {
                 });
                 req.query('asset', mapped.asset);
                 req.query('blockchain', mapped.blockchain);
-                return [2 /*return*/, req.callAsJson(fetchAssetMetadataResponse_1.fetchAssetMetadataResponseSchema, requestOptions)];
+                return [2 /*return*/, req.callAsJson(asset_1.assetSchema, requestOptions)];
             });
         });
     };
@@ -313,11 +313,13 @@ var ApiController = /** @class */ (function (_super) {
         });
     };
     /**
+     * Get the portfolio of holdings from any EVM-compatible wallets, at any time
+     *
      * @param wallet      The user wallet queried
-     * @param blockchains Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or
+     * @param blockchains Blockchains to fetch holdings from (by default, all) - comma separated, chain ID or
      *                               chain name
      * @param cache       Will use cached data if available
-     * @param stale       amount of seconds after which the cache is considered stale (default 5min)
+     * @param stale       Amount of seconds after which the cache is considered stale (default 5min)
      * @return Response from the API call
      */
     ApiController.prototype.fetchWalletHoldings = function (wallet, blockchains, cache, stale, requestOptions) {
@@ -335,23 +337,22 @@ var ApiController = /** @class */ (function (_super) {
                 req.query('blockchains', mapped.blockchains);
                 req.query('cache', mapped.cache);
                 req.query('stale', mapped.stale);
-                return [2 /*return*/, req.callAsJson(walletPortfolioResponse_1.walletPortfolioResponseSchema, requestOptions)];
+                return [2 /*return*/, req.callAsJson(walletPortfolioResponse1_1.walletPortfolioResponse1Schema, requestOptions)];
             });
         });
     };
     /**
+     * Retrieve all transactions for a specified wallet within a given timeframe.
+     *
      * @param wallet      The user wallet queried
-     * @param from        ISO Date string OR Timestamp from which you want to start receiving transactions
-     * @param to          ISO Date string OR Timestamp until which you want to receive transactions
-     * @param asset       The asset you want to target, use the asset's name (empty if you want general
-     *                                 transactions)
+     * @param from        Start of the timeframe for transactions (timestamp)
+     * @param to          End of the timeframe for transactions (timestamp)
+     * @param asset       Specific asset to filter transactions
      * @param blockchains Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or
      *                                 chain name
-     * @param limit       Number of transactions to return (100 by default)
-     * @param offset      Number of pages to skip (0 by default) - limit * offset = number of transactions
-     *                                 to skip
-     * @param order       Order in which transactions should be sorted. Use 'asc' for ascending and 'desc'
-     *                                 for descending.
+     * @param limit       Number of transactions to return per page
+     * @param offset      Number of transactions to skip
+     * @param order       Example: asc
      * @return Response from the API call
      */
     ApiController.prototype.fetchWalletTransactions = function (wallet, from, to, asset, blockchains, limit, offset, order, requestOptions) {

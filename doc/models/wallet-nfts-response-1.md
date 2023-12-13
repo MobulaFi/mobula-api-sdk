@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `data` | [`Datum[] \| undefined`](../../doc/models/datum.md) | Optional | - |
+| `data` | [`Data6[] \| undefined`](../../doc/models/data-6.md) | Optional | - |
 
 ## Example (as JSON)
 

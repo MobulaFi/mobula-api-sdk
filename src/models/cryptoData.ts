@@ -21,6 +21,8 @@ export interface CryptoData {
   id?: number;
   /** The name of the cryptocurrency */
   name?: string;
+  /** The contracts associated with the cryptocurrency */
+  contracts?: (string | null)[];
   /** The symbol of the cryptocurrency */
   symbol?: string | null;
 }
@@ -29,5 +31,6 @@ export const cryptoDataSchema: Schema<CryptoData> = object({
   blockchains: ['blockchains', optional(array(nullable(string())))],
   id: ['id', optional(number())],
   name: ['name', optional(string())],
+  contracts: ['contracts', optional(array(nullable(string())))],
   symbol: ['symbol', optional(nullable(string()))],
 });

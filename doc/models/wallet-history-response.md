@@ -9,26 +9,33 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `balanceHistory` | `number[] \| undefined` | Optional | - |
-| `balanceUsd` | `number \| undefined` | Optional | - |
-| `wallet` | `string \| undefined` | Optional | - |
+| `data` | [`Data4 \| undefined`](../../doc/models/data-4.md) | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "balance_history": [
-    [
-      167.69,
-      167.7
+  "data": {
+    "wallet": [
+      "wallet4",
+      "wallet5"
     ],
-    [
-      167.69,
-      167.7
+    "balance_usd": 96.62,
+    "balance_history": [
+      {
+        "key1": "val1",
+        "key2": "val2"
+      },
+      {
+        "key1": "val1",
+        "key2": "val2"
+      },
+      {
+        "key1": "val1",
+        "key2": "val2"
+      }
     ]
-  ],
-  "balance_usd": 239.28,
-  "wallet": "wallet2"
+  }
 }
 ```
 

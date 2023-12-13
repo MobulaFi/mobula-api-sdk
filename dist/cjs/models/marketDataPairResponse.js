@@ -7,10 +7,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.marketDataPairResponseSchema = void 0;
 var schema_1 = require("../schema");
-var token0_1 = require("./token0");
-var token1_1 = require("./token1");
-exports.marketDataPairResponseSchema = (0, schema_1.object)({
-    token0: ['token0', (0, schema_1.optional)((0, schema_1.lazy)(function () { return token0_1.token0Schema; }))],
-    token1: ['token1', (0, schema_1.optional)((0, schema_1.lazy)(function () { return token1_1.token1Schema; }))],
-});
+var data1_1 = require("./data1");
+exports.marketDataPairResponseSchema = (0, schema_1.object)({ data: ['data', (0, schema_1.optional)((0, schema_1.lazy)(function () { return data1_1.data1Schema; }))] });
 //# sourceMappingURL=marketDataPairResponse.js.map

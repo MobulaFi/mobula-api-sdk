@@ -9,22 +9,24 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `priceHistory` | `number[] \| undefined` | Optional | - |
+| `data` | [`Data2 \| undefined`](../../doc/models/data-2.md) | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "price_history": [
-    [
-      129.46,
-      129.47
-    ],
-    [
-      129.46,
-      129.47
+  "data": {
+    "price_history": [
+      {
+        "key1": "val1",
+        "key2": "val2"
+      },
+      {
+        "key1": "val1",
+        "key2": "val2"
+      }
     ]
-  ]
+  }
 }
 ```
 

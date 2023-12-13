@@ -7,8 +7,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.marketPairsResponseSchema = void 0;
 var schema_1 = require("../schema");
-var marketDataPairResponse_1 = require("./marketDataPairResponse");
+var data7_1 = require("./data7");
 exports.marketPairsResponseSchema = (0, schema_1.object)({
-    data: ['data', (0, schema_1.optional)((0, schema_1.array)((0, schema_1.lazy)(function () { return marketDataPairResponse_1.marketDataPairResponseSchema; })))],
+    data: ['data', (0, schema_1.optional)((0, schema_1.lazy)(function () { return data7_1.data7Schema; }))],
 });
 //# sourceMappingURL=marketPairsResponse.js.map

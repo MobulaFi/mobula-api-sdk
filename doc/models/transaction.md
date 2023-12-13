@@ -9,25 +9,33 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `amount` | `number \| undefined` | Optional | The amount of asset in the transaction. |
-| `asset` | [`Asset1 \| undefined`](../../doc/models/asset-1.md) | Optional | - |
-| `from` | `string \| undefined` | Optional | The sender's address. |
-| `timestamp` | `number \| undefined` | Optional | The timestamp of the transaction. |
-| `to` | `string \| undefined` | Optional | The receiver's address. |
+| `timestamp` | `number \| undefined` | Optional | - |
+| `asset` | [`AssetTransaction \| undefined`](../../doc/models/asset-transaction.md) | Optional | - |
+| `type` | `string \| undefined` | Optional | - |
+| `methodId` | `string \| null \| undefined` | Optional | - |
+| `hash` | `string \| undefined` | Optional | - |
+| `blockchain` | `string \| undefined` | Optional | - |
+| `amount` | `number \| undefined` | Optional | - |
+| `amountUsd` | `number \| undefined` | Optional | - |
+| `to` | `string \| undefined` | Optional | - |
+| `from` | `string \| undefined` | Optional | - |
+| `txCost` | `number \| undefined` | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "amount": 20.56,
-  "asset": {
-    "id": 240,
-    "name": "name0",
-    "symbol": "symbol2"
-  },
-  "from": "from8",
   "timestamp": 28,
-  "to": "to2"
+  "asset": {
+    "name": "name0",
+    "symbol": "symbol2",
+    "id": 240,
+    "contract": "contract0",
+    "logo": "logo6"
+  },
+  "type": "type6",
+  "method_id": "method_id8",
+  "hash": "hash0"
 }
 ```
 

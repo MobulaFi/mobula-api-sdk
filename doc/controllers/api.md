@@ -10,7 +10,7 @@ const apiController = new ApiController(client);
 
 ## Methods
 
-* [Fetch Crypto Data by Name](../../doc/controllers/api.md#fetch-crypto-data-by-name)
+* [Search Crypto by Name](../../doc/controllers/api.md#search-crypto-by-name)
 * [Fetch Wallet NF Ts](../../doc/controllers/api.md#fetch-wallet-nf-ts)
 * [Fetch All Crypto Details](../../doc/controllers/api.md#fetch-all-crypto-details)
 * [Fetch Asset Market Data](../../doc/controllers/api.md#fetch-asset-market-data)
@@ -26,10 +26,10 @@ const apiController = new ApiController(client);
 * [Fetch Wallet Transactions](../../doc/controllers/api.md#fetch-wallet-transactions)
 
 
-# Fetch Crypto Data by Name
+# Search Crypto by Name
 
 ```ts
-async fetchCryptoDataByName(
+async searchCryptoByName(
   name?: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<SearchResponse>>
@@ -54,7 +54,7 @@ const name = 'bitcoin';
 try {
   // @ts-expect-error: unused variables
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { result, ...httpResponse } = await apiController.fetchCryptoDataByName(name);
+  const { result, ...httpResponse } = await apiController.searchCryptoByName(name);
   // Get more response info...
   // const { statusCode, headers } = httpResponse;
 } catch (error) {
@@ -172,7 +172,7 @@ async fetchAssetMarketData(
   blockchain?: string,
   symbol?: string,
   requestOptions?: RequestOptions
-): Promise<ApiResponse<MarketDataResponse1>>
+): Promise<ApiResponse<MarketDataResponse>>
 ```
 
 ## Parameters
@@ -186,7 +186,7 @@ async fetchAssetMarketData(
 
 ## Response Type
 
-[`MarketDataResponse1`](../../doc/models/market-data-response-1.md)
+[`MarketDataResponse`](../../doc/models/market-data-response.md)
 
 ## Example Usage
 
@@ -332,8 +332,8 @@ async fetchAssetMarketHistory(
 |  --- | --- | --- | --- |
 | `asset` | `string` | Query, Required | The asset you want to target - asset name only works for assets listed on Mobula. |
 | `blockchain` | `string \| undefined` | Query, Optional | Blockchain of the asset - only mandatory if asset is sent as smart-contract. |
-| `from` | `number \| undefined` | Query, Optional | JS Timestamp (miliseconds) of the beginning of the timeframe (if not provided, genesis) |
-| `to` | `number \| undefined` | Query, Optional | JS Timestamp (miliseconds) of the end of the timeframe (if not provided, end) |
+| `from` | `number \| undefined` | Query, Optional | JS Timestamp (milliseconds) of the beginning of the timeframe (if not provided, genesis) |
+| `to` | `number \| undefined` | Query, Optional | JS Timestamp (milliseconds) of the end of the timeframe (if not provided, end) |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -370,7 +370,7 @@ async fetchMultipleAssetMarketData(
   blockchains?: string,
   symbols?: string,
   requestOptions?: RequestOptions
-): Promise<ApiResponse<Record<string, MarketMetrics>>>
+): Promise<ApiResponse<MultiDataResponse>>
 ```
 
 ## Parameters
@@ -384,7 +384,7 @@ async fetchMultipleAssetMarketData(
 
 ## Response Type
 
-[`Record<string, MarketMetrics>`](../../doc/models/market-metrics.md)
+[`MultiDataResponse`](../../doc/models/multi-data-response.md)
 
 ## Example Usage
 
@@ -409,7 +409,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Invalid input - too many assets or invalid blockchain name | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
+| 400 | Bad request response. | [`ErrorResponseError`](../../doc/models/error-response-error.md) |
 
 
 # Fetch Asset Trade History
@@ -419,7 +419,7 @@ async fetchAssetTradeHistory(
   asset: string,
   maxResults?: number,
   requestOptions?: RequestOptions
-): Promise<ApiResponse<TradeHistoryItem[]>>
+): Promise<ApiResponse<TradeHistoryResponse>>
 ```
 
 ## Parameters
@@ -432,7 +432,7 @@ async fetchAssetTradeHistory(
 
 ## Response Type
 
-[`TradeHistoryItem[]`](../../doc/models/trade-history-item.md)
+[`TradeHistoryResponse`](../../doc/models/trade-history-response.md)
 
 ## Example Usage
 
@@ -474,7 +474,7 @@ async fetchAssetMetadata(
   asset: string,
   blockchain?: string,
   requestOptions?: RequestOptions
-): Promise<ApiResponse<FetchAssetMetadataResponse>>
+): Promise<ApiResponse<Asset>>
 ```
 
 ## Parameters
@@ -487,7 +487,7 @@ async fetchAssetMetadata(
 
 ## Response Type
 
-[`FetchAssetMetadataResponse`](../../doc/models/containers/fetch-asset-metadata-response.md)
+[`Asset`](../../doc/models/asset.md)
 
 ## Example Usage
 
@@ -503,13 +503,6 @@ try {
   asset,
   blockchain
 );
-  if (FetchAssetMetadataResponse.isAsset(result)) {
-      // Use the result narrowed down to Asset type.
-  } else if (FetchAssetMetadataResponse.isArrayOfAsset(result)) {
-      // Use the result narrowed down to Asset[] type.
-  } else {
-      // result is narrowed down to type 'never'.
-  }
   // Get more response info...
   // const { statusCode, headers } = httpResponse;
 } catch (error) {
@@ -659,6 +652,8 @@ try {
 
 # Fetch Wallet Holdings
 
+Get the portfolio of holdings from any EVM-compatible wallets, at any time
+
 ```ts
 async fetchWalletHoldings(
   wallet: string,
@@ -666,7 +661,7 @@ async fetchWalletHoldings(
   cache?: boolean,
   stale?: number,
   requestOptions?: RequestOptions
-): Promise<ApiResponse<WalletPortfolioResponse>>
+): Promise<ApiResponse<WalletPortfolioResponse1>>
 ```
 
 ## Parameters
@@ -674,14 +669,14 @@ async fetchWalletHoldings(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `wallet` | `string` | Query, Required | The user wallet queried |
-| `blockchains` | `string \| undefined` | Query, Optional | Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or chain name |
+| `blockchains` | `string \| undefined` | Query, Optional | Blockchains to fetch holdings from (by default, all) - comma separated, chain ID or chain name |
 | `cache` | `boolean \| undefined` | Query, Optional | Will use cached data if available |
-| `stale` | `number \| undefined` | Query, Optional | amount of seconds after which the cache is considered stale (default 5min) |
+| `stale` | `number \| undefined` | Query, Optional | Amount of seconds after which the cache is considered stale (default 5min) |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
 
-[`WalletPortfolioResponse`](../../doc/models/wallet-portfolio-response.md)
+[`WalletPortfolioResponse1`](../../doc/models/wallet-portfolio-response-1.md)
 
 ## Example Usage
 
@@ -712,6 +707,8 @@ try {
 
 # Fetch Wallet Transactions
 
+Retrieve all transactions for a specified wallet within a given timeframe.
+
 ```ts
 async fetchWalletTransactions(
   wallet: string,
@@ -731,13 +728,13 @@ async fetchWalletTransactions(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `wallet` | `string` | Query, Required | The user wallet queried |
-| `from` | `number \| undefined` | Query, Optional | ISO Date string OR Timestamp from which you want to start receiving transactions |
-| `to` | `number \| undefined` | Query, Optional | ISO Date string OR Timestamp until which you want to receive transactions |
-| `asset` | `string \| undefined` | Query, Optional | The asset you want to target, use the asset's name (empty if you want general transactions) |
+| `from` | `number \| undefined` | Query, Optional | Start of the timeframe for transactions (timestamp) |
+| `to` | `number \| undefined` | Query, Optional | End of the timeframe for transactions (timestamp) |
+| `asset` | `string \| undefined` | Query, Optional | Specific asset to filter transactions |
 | `blockchains` | `string \| undefined` | Query, Optional | Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or chain name |
-| `limit` | `number \| undefined` | Query, Optional | Number of transactions to return (100 by default)<br>**Default**: `100` |
-| `offset` | `number \| undefined` | Query, Optional | Number of pages to skip (0 by default) - limit * offset = number of transactions to skip<br>**Default**: `0` |
-| `order` | [`OrderEnum \| undefined`](../../doc/models/order-enum.md) | Query, Optional | Order in which transactions should be sorted. Use 'asc' for ascending and 'desc' for descending.<br>**Default**: `OrderEnum.Asc` |
+| `limit` | `number \| undefined` | Query, Optional | Number of transactions to return per page<br>**Default**: `50` |
+| `offset` | `number \| undefined` | Query, Optional | Number of transactions to skip<br>**Default**: `10` |
+| `order` | [`OrderEnum \| undefined`](../../doc/models/order-enum.md) | Query, Optional | **Default**: `OrderEnum.Asc` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -747,13 +744,13 @@ async fetchWalletTransactions(
 ## Example Usage
 
 ```ts
-const wallet = '0xf23b38099188fd5892346104bBEF2F1c11D10244';
+const wallet = '0xd99cB89A20822B0448936DF4f36803778CA5a003';
 
 const blockchains = '56,Ethereum';
 
-const limit = 100;
+const limit = 50;
 
-const offset = 0;
+const offset = 10;
 
 const order = OrderEnum.Asc;
 

@@ -7,5 +7,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.marketHistoryResponseSchema = void 0;
 var schema_1 = require("../schema");
-exports.marketHistoryResponseSchema = (0, schema_1.object)({ priceHistory: ['price_history', (0, schema_1.optional)((0, schema_1.array)((0, schema_1.number)()))] });
+var data2_1 = require("./data2");
+exports.marketHistoryResponseSchema = (0, schema_1.object)({ data: ['data', (0, schema_1.optional)((0, schema_1.lazy)(function () { return data2_1.data2Schema; }))] });
 //# sourceMappingURL=marketHistoryResponse.js.map

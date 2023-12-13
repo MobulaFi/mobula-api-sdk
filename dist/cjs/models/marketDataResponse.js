@@ -7,9 +7,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.marketDataResponseSchema = void 0;
 var schema_1 = require("../schema");
+var marketMetrics_1 = require("./marketMetrics");
 exports.marketDataResponseSchema = (0, schema_1.object)({
-    liquidity: ['liquidity', (0, schema_1.optional)((0, schema_1.number)())],
-    marketCap: ['market_cap', (0, schema_1.optional)((0, schema_1.number)())],
-    price: ['price', (0, schema_1.optional)((0, schema_1.number)())],
+    data: ['data', (0, schema_1.optional)((0, schema_1.lazy)(function () { return marketMetrics_1.marketMetricsSchema; }))],
 });
 //# sourceMappingURL=marketDataResponse.js.map

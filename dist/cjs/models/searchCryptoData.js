@@ -9,7 +9,7 @@ exports.searchCryptoDataSchema = void 0;
 var schema_1 = require("../schema");
 exports.searchCryptoDataSchema = (0, schema_1.object)({
     blockchains: ['blockchains', (0, schema_1.optional)((0, schema_1.array)((0, schema_1.string)()))],
-    contracts: ['contracts', (0, schema_1.optional)((0, schema_1.array)((0, schema_1.string)()))],
+    contracts: ['contracts', (0, schema_1.optional)((0, schema_1.array)((0, schema_1.nullable)((0, schema_1.string)())))],
     id: ['id', (0, schema_1.optional)((0, schema_1.number)())],
     liquidity: ['liquidity', (0, schema_1.optional)((0, schema_1.bigint)())],
     logo: ['logo', (0, schema_1.optional)((0, schema_1.string)())],

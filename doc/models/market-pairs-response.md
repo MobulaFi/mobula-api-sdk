@@ -9,27 +9,35 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `data` | [`MarketDataPairResponse[] \| undefined`](../../doc/models/market-data-pair-response.md) | Optional | - |
+| `data` | [`Data7 \| undefined`](../../doc/models/data-7.md) | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "data": [
-    {
-      "token0": {
-        "address": "address6",
-        "price": 11.32,
-        "priceToken": 134.58
-      },
-      "token1": {
+  "data": {
+    "pairs": [
+      {
         "address": "address4",
-        "name": "name8",
-        "price": 61.44,
-        "priceToken": 84.46
+        "token0": {
+          "address": "address6",
+          "decimals": 154,
+          "symbol": "symbol2",
+          "name": "name0",
+          "logo": "logo6"
+        },
+        "token1": {
+          "address": "address4",
+          "decimals": 6,
+          "symbol": "symbol0",
+          "name": "name8",
+          "logo": "logo4"
+        },
+        "liquidity": 147.56,
+        "volume": 88.34
       }
-    }
-  ]
+    ]
+  }
 }
 ```
 

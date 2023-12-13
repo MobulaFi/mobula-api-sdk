@@ -9,7 +9,12 @@ exports.token0Schema = void 0;
 var schema_1 = require("../schema");
 exports.token0Schema = (0, schema_1.object)({
     address: ['address', (0, schema_1.optional)((0, schema_1.string)())],
+    decimals: ['decimals', (0, schema_1.optional)((0, schema_1.number)())],
+    symbol: ['symbol', (0, schema_1.optional)((0, schema_1.string)())],
+    name: ['name', (0, schema_1.optional)((0, schema_1.string)())],
+    logo: ['logo', (0, schema_1.optional)((0, schema_1.string)())],
     price: ['price', (0, schema_1.optional)((0, schema_1.number)())],
     priceToken: ['priceToken', (0, schema_1.optional)((0, schema_1.number)())],
+    id: ['id', (0, schema_1.optional)((0, schema_1.number)())],
 });
 //# sourceMappingURL=token0.js.map

@@ -8,12 +8,22 @@ import { number, object, optional, Schema, string } from '../schema';
 
 export interface Token0 {
   address?: string;
+  decimals?: number;
+  symbol?: string;
+  name?: string;
+  logo?: string;
   price?: number;
   priceToken?: number;
+  id?: number;
 }
 
 export const token0Schema: Schema<Token0> = object({
   address: ['address', optional(string())],
+  decimals: ['decimals', optional(number())],
+  symbol: ['symbol', optional(string())],
+  name: ['name', optional(string())],
+  logo: ['logo', optional(string())],
   price: ['price', optional(number())],
   priceToken: ['priceToken', optional(number())],
+  id: ['id', optional(number())],
 });

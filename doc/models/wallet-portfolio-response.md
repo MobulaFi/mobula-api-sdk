@@ -9,36 +9,104 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `assets` | [`Asset4[] \| undefined`](../../doc/models/asset-4.md) | Optional | - |
+| `data` | [`Data5 \| undefined`](../../doc/models/data-5.md) | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "assets": [
-    {
-      "allocation": 176.06,
-      "asset": {
-        "id": 240,
-        "name": "name0",
-        "symbol": "symbol2"
+  "data": {
+    "total_wallet_balance": 254.3,
+    "wallet": "wallet6",
+    "assets": [
+      {
+        "asset": {
+          "name": "name0",
+          "symbol": "symbol2",
+          "id": 240,
+          "contracts": [
+            "contracts3"
+          ],
+          "logo": "logo6"
+        },
+        "price": 111.24,
+        "estimated_balance": 143.92,
+        "token_balance": 239.34,
+        "cross_chain_balances": {
+          "key0": {
+            "address": "address6",
+            "balance": 55.84,
+            "balanceRaw": "balanceRaw8",
+            "chainId": 182
+          }
+        }
       },
-      "balance": 122.52,
-      "estimated_balance": 143.92,
-      "price": 111.24
-    },
-    {
-      "allocation": 176.06,
-      "asset": {
-        "id": 240,
-        "name": "name0",
-        "symbol": "symbol2"
+      {
+        "asset": {
+          "name": "name0",
+          "symbol": "symbol2",
+          "id": 240,
+          "contracts": [
+            "contracts3"
+          ],
+          "logo": "logo6"
+        },
+        "price": 111.24,
+        "estimated_balance": 143.92,
+        "token_balance": 239.34,
+        "cross_chain_balances": {
+          "key0": {
+            "address": "address6",
+            "balance": 55.84,
+            "balanceRaw": "balanceRaw8",
+            "chainId": 182
+          }
+        }
       },
-      "balance": 122.52,
-      "estimated_balance": 143.92,
-      "price": 111.24
+      {
+        "asset": {
+          "name": "name0",
+          "symbol": "symbol2",
+          "id": 240,
+          "contracts": [
+            "contracts3"
+          ],
+          "logo": "logo6"
+        },
+        "price": 111.24,
+        "estimated_balance": 143.92,
+        "token_balance": 239.34,
+        "cross_chain_balances": {
+          "key0": {
+            "address": "address6",
+            "balance": 55.84,
+            "balanceRaw": "balanceRaw8",
+            "chainId": 182
+          }
+        }
+      }
+    ],
+    "lastUpdated": {
+      "key0": {
+        "normal": 248,
+        "internal": 82,
+        "token": 204,
+        "last_updated": 128
+      },
+      "key1": {
+        "normal": 248,
+        "internal": 82,
+        "token": 204,
+        "last_updated": 128
+      },
+      "key2": {
+        "normal": 248,
+        "internal": 82,
+        "token": 204,
+        "last_updated": 128
+      }
     }
-  ]
+  }
 }
 ```
 

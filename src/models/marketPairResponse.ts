@@ -5,15 +5,12 @@
  */
 
 import { lazy, object, optional, Schema } from '../schema';
-import {
-  MarketDataPairResponse,
-  marketDataPairResponseSchema,
-} from './marketDataPairResponse';
+import { Pair, pairSchema } from './pair';
 
 export interface MarketPairResponse {
-  data?: MarketDataPairResponse;
+  data?: Pair;
 }
 
 export const marketPairResponseSchema: Schema<MarketPairResponse> = object({
-  data: ['data', optional(lazy(() => marketDataPairResponseSchema))],
+  data: ['data', optional(lazy(() => pairSchema))],
 });

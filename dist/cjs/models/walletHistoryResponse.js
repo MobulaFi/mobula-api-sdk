@@ -7,9 +7,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.walletHistoryResponseSchema = void 0;
 var schema_1 = require("../schema");
-exports.walletHistoryResponseSchema = (0, schema_1.object)({
-    balanceHistory: ['balance_history', (0, schema_1.optional)((0, schema_1.array)((0, schema_1.number)()))],
-    balanceUsd: ['balance_usd', (0, schema_1.optional)((0, schema_1.number)())],
-    wallet: ['wallet', (0, schema_1.optional)((0, schema_1.string)())],
-});
+var data4_1 = require("./data4");
+exports.walletHistoryResponseSchema = (0, schema_1.object)({ data: ['data', (0, schema_1.optional)((0, schema_1.lazy)(function () { return data4_1.data4Schema; }))] });
 //# sourceMappingURL=walletHistoryResponse.js.map

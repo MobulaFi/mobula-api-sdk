@@ -9,17 +9,19 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `liquidity` | `number \| undefined` | Optional | The liquidity of the asset. |
-| `marketCap` | `number \| undefined` | Optional | The market cap of the asset. |
-| `price` | `number \| undefined` | Optional | The price of the asset. |
+| `data` | [`MarketMetrics \| undefined`](../../doc/models/market-metrics.md) | Optional | - |
 
 ## Example (as JSON)
 
 ```json
 {
-  "liquidity": 137.2,
-  "market_cap": 110.22,
-  "price": 74.6
+  "data": {
+    "market_cap": 184.2,
+    "market_cap_diluted": 112.34,
+    "liquidity": 211.18,
+    "liquidity_change_24h": 216.48,
+    "price": 148.58
+  }
 }
 ```
 

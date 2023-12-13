@@ -1,10 +1,9 @@
-import { Client } from './client';
-import { ApiController } from './controllers/apiController';
-import { ApiResponse, RequestOptions } from './core';
-import { MarketPairResponse } from './models/marketPairResponse';
-import { MarketPairsResponse } from './models/marketPairsResponse';
+import { ApiController } from '../../mobula-api-sdk//src/controllers/apiController';
+import { MarketPairsResponse } from '../../mobula-api-sdk//src/models/marketPairsResponse';
+import { TypeEnum } from '../../mobula-api-sdk//src/models/typeEnum';
+import { Client } from '../../mobula-api-sdk/src/client';
+import { ApiResponse, RequestOptions } from '../../mobula-api-sdk/src/core';
 import { OrderEnum } from './models/orderEnum';
-import { TypeEnum } from './models/typeEnum';
 
 class Mobula {
   private apiController: ApiController;
@@ -17,12 +16,36 @@ class Mobula {
     this.apiController = new ApiController(client);
   }
 
-  public async fetchCryptoDataByName(options: {
+  public async searchCryptoByName(options: {
     name?: string;
     requestOptions?: RequestOptions;
   }) {
-    return await this.apiController.fetchCryptoDataByName(
+    return await this.apiController.searchCryptoByName(
       options.name,
+      options.requestOptions
+    );
+  }
+
+  public async fetchWalletTransactions(options: {
+    wallet: string;
+    from?: number;
+    to?: number;
+    asset?: string;
+    blockchains?: string;
+    limit?: number;
+    offset?: number;
+    order?: OrderEnum;
+    requestOptions?: RequestOptions;
+  }) {
+    return await this.apiController.fetchWalletTransactions(
+      options.wallet,
+      options.from,
+      options.to,
+      options.asset,
+      options.blockchains,
+      options.limit,
+      options.offset,
+      options.order,
       options.requestOptions
     );
   }
@@ -69,7 +92,7 @@ class Mobula {
     blockchain?: string;
     asset?: unknown;
     requestOptions?: RequestOptions;
-  }): Promise<ApiResponse<MarketPairResponse>> {
+  }) {
     return await this.apiController.fetchPairMarketData(
       options.address,
       options.blockchain,
@@ -198,29 +221,6 @@ class Mobula {
       options.cache,
       options.stale,
       options.requestOptions
-    );
-  }
-
-  public async fetchWalletTransactions(options: {
-    wallet: string;
-    from?: number;
-    to?: number;
-    asset?: string;
-    blockchains?: string;
-    limit?: number;
-    offset?: number;
-    order?: OrderEnum;
-    requestOptions?: RequestOptions;
-  }) {
-    return await this.apiController.fetchWalletTransactions(
-      options.wallet,
-      options.from,
-      options.to,
-      options.asset,
-      options.blockchains,
-      options.limit,
-      options.offset,
-      options.order
     );
   }
 }

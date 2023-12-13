@@ -7,11 +7,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.walletTransactionsResponseSchema = void 0;
 var schema_1 = require("../schema");
-var transaction_1 = require("./transaction");
-exports.walletTransactionsResponseSchema = (0, schema_1.object)({
-    transactions: [
-        'transactions',
-        (0, schema_1.optional)((0, schema_1.array)((0, schema_1.lazy)(function () { return transaction_1.transactionSchema; }))),
-    ],
-});
+var data9_1 = require("./data9");
+exports.walletTransactionsResponseSchema = (0, schema_1.object)({ data: ['data', (0, schema_1.optional)((0, schema_1.lazy)(function () { return data9_1.data9Schema; }))] });
 //# sourceMappingURL=walletTransactionsResponse.js.map

@@ -8,8 +8,8 @@ import { HttpClientOptions } from './clientAdapter';
 
 /** An interface for all configuration parameters required by the SDK. */
 export interface Configuration {
-  apiKey: string;
   timeout: number;
+  apiKey: string;
   environment: Environment;
   httpClientOptions?: Partial<HttpClientOptions>;
   unstable_httpClientOptions?: any;

@@ -7,19 +7,15 @@
 import { ApiResponse, RequestOptions } from '../core';
 import { ErrorResponseError } from '../errors/errorResponseError';
 import { AllResponse, allResponseSchema } from '../models/allResponse';
+import { Asset, assetSchema } from '../models/asset';
 import {
-  FetchAssetMetadataResponse,
-  fetchAssetMetadataResponseSchema,
-} from '../models/containers/fetchAssetMetadataResponse';
-import {
-  MarketDataResponse1,
-  marketDataResponse1Schema,
-} from '../models/marketDataResponse1';
+  MarketDataResponse,
+  marketDataResponseSchema,
+} from '../models/marketDataResponse';
 import {
   MarketHistoryResponse,
   marketHistoryResponseSchema,
 } from '../models/marketHistoryResponse';
-import { MarketMetrics, marketMetricsSchema } from '../models/marketMetrics';
 import {
   MarketPairResponse,
   marketPairResponseSchema,
@@ -28,13 +24,17 @@ import {
   MarketPairsResponse,
   marketPairsResponseSchema,
 } from '../models/marketPairsResponse';
+import {
+  MultiDataResponse,
+  multiDataResponseSchema,
+} from '../models/multiDataResponse';
 import { OrderEnum, orderEnumSchema } from '../models/orderEnum';
 import { QuoteResponse1, quoteResponse1Schema } from '../models/quoteResponse1';
 import { SearchResponse, searchResponseSchema } from '../models/searchResponse';
 import {
-  TradeHistoryItem,
-  tradeHistoryItemSchema,
-} from '../models/tradeHistoryItem';
+  TradeHistoryResponse,
+  tradeHistoryResponseSchema,
+} from '../models/tradeHistoryResponse';
 import { TypeEnum, typeEnumSchema } from '../models/typeEnum';
 import {
   WalletHistoryResponse,
@@ -45,23 +45,14 @@ import {
   walletNftsResponse1Schema,
 } from '../models/walletNftsResponse1';
 import {
-  WalletPortfolioResponse,
-  walletPortfolioResponseSchema,
-} from '../models/walletPortfolioResponse';
+  WalletPortfolioResponse1,
+  walletPortfolioResponse1Schema,
+} from '../models/walletPortfolioResponse1';
 import {
   WalletTransactionsResponse,
   walletTransactionsResponseSchema,
 } from '../models/walletTransactionsResponse';
-import {
-  array,
-  bigint,
-  boolean,
-  dict,
-  number,
-  optional,
-  string,
-  unknown,
-} from '../schema';
+import { bigint, boolean, number, optional, string, unknown } from '../schema';
 import { BaseController } from './baseController';
 
 export class ApiController extends BaseController {
@@ -69,7 +60,7 @@ export class ApiController extends BaseController {
    * @param name Name or symbol (or starting name/symbol) of the asset
    * @return Response from the API call
    */
-  async fetchCryptoDataByName(
+  async searchCryptoByName(
     name?: string,
     requestOptions?: RequestOptions
   ): Promise<ApiResponse<SearchResponse>> {
@@ -129,7 +120,7 @@ export class ApiController extends BaseController {
     blockchain?: string,
     symbol?: string,
     requestOptions?: RequestOptions
-  ): Promise<ApiResponse<MarketDataResponse1>> {
+  ): Promise<ApiResponse<MarketDataResponse>> {
     const req = this.createRequest('GET', '/market/data');
     const mapped = req.prepareArgs({
       asset: [asset, optional(string())],
@@ -139,7 +130,7 @@ export class ApiController extends BaseController {
     req.query('asset', mapped.asset);
     req.query('blockchain', mapped.blockchain);
     req.query('symbol', mapped.symbol);
-    return req.callAsJson(marketDataResponse1Schema, requestOptions);
+    return req.callAsJson(marketDataResponseSchema, requestOptions);
   }
 
   /**
@@ -193,9 +184,9 @@ export class ApiController extends BaseController {
   /**
    * @param asset      The asset you want to target - asset name only works for assets listed on Mobula.
    * @param blockchain Blockchain of the asset - only mandatory if asset is sent as smart-contract.
-   * @param from       JS Timestamp (miliseconds) of the beginning of the timeframe (if not provided,
+   * @param from       JS Timestamp (milliseconds) of the beginning of the timeframe (if not provided,
    *                             genesis)
-   * @param to         JS Timestamp (miliseconds) of the end of the timeframe (if not provided, end)
+   * @param to         JS Timestamp (milliseconds) of the end of the timeframe (if not provided, end)
    * @return Response from the API call
    */
   async fetchAssetMarketHistory(
@@ -230,7 +221,7 @@ export class ApiController extends BaseController {
     blockchains?: string,
     symbols?: string,
     requestOptions?: RequestOptions
-  ): Promise<ApiResponse<Record<string, MarketMetrics>>> {
+  ): Promise<ApiResponse<MultiDataResponse>> {
     const req = this.createRequest('GET', '/market/multi-data');
     const mapped = req.prepareArgs({
       assets: [assets, optional(string())],
@@ -240,8 +231,8 @@ export class ApiController extends BaseController {
     req.query('assets', mapped.assets);
     req.query('blockchains', mapped.blockchains);
     req.query('symbols', mapped.symbols);
-    req.throwOn(400, ErrorResponseError, 'Invalid input - too many assets or invalid blockchain name');
-    return req.callAsJson(dict(marketMetricsSchema), requestOptions);
+    req.throwOn(400, ErrorResponseError, 'Bad request response.');
+    return req.callAsJson(multiDataResponseSchema, requestOptions);
   }
 
   /**
@@ -253,7 +244,7 @@ export class ApiController extends BaseController {
     asset: string,
     maxResults?: number,
     requestOptions?: RequestOptions
-  ): Promise<ApiResponse<TradeHistoryItem[]>> {
+  ): Promise<ApiResponse<TradeHistoryResponse>> {
     const req = this.createRequest('GET', '/market/trades');
     const mapped = req.prepareArgs({
       asset: [asset, string()],
@@ -262,7 +253,7 @@ export class ApiController extends BaseController {
     req.query('asset', mapped.asset);
     req.query('maxResults', mapped.maxResults);
     req.throwOn(400, ErrorResponseError, 'Bad request (e.g., missing asset parameter)');
-    return req.callAsJson(array(tradeHistoryItemSchema), requestOptions);
+    return req.callAsJson(tradeHistoryResponseSchema, requestOptions);
   }
 
   /**
@@ -274,7 +265,7 @@ export class ApiController extends BaseController {
     asset: string,
     blockchain?: string,
     requestOptions?: RequestOptions
-  ): Promise<ApiResponse<FetchAssetMetadataResponse>> {
+  ): Promise<ApiResponse<Asset>> {
     const req = this.createRequest('GET', '/metadata');
     const mapped = req.prepareArgs({
       asset: [asset, string()],
@@ -282,7 +273,7 @@ export class ApiController extends BaseController {
     });
     req.query('asset', mapped.asset);
     req.query('blockchain', mapped.blockchain);
-    return req.callAsJson(fetchAssetMetadataResponseSchema, requestOptions);
+    return req.callAsJson(assetSchema, requestOptions);
   }
 
   /**
@@ -360,11 +351,13 @@ export class ApiController extends BaseController {
   }
 
   /**
+   * Get the portfolio of holdings from any EVM-compatible wallets, at any time
+   *
    * @param wallet      The user wallet queried
-   * @param blockchains Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or
+   * @param blockchains Blockchains to fetch holdings from (by default, all) - comma separated, chain ID or
    *                               chain name
    * @param cache       Will use cached data if available
-   * @param stale       amount of seconds after which the cache is considered stale (default 5min)
+   * @param stale       Amount of seconds after which the cache is considered stale (default 5min)
    * @return Response from the API call
    */
   async fetchWalletHoldings(
@@ -373,7 +366,7 @@ export class ApiController extends BaseController {
     cache?: boolean,
     stale?: number,
     requestOptions?: RequestOptions
-  ): Promise<ApiResponse<WalletPortfolioResponse>> {
+  ): Promise<ApiResponse<WalletPortfolioResponse1>> {
     const req = this.createRequest('GET', '/wallet/portfolio');
     const mapped = req.prepareArgs({
       wallet: [wallet, string()],
@@ -385,22 +378,21 @@ export class ApiController extends BaseController {
     req.query('blockchains', mapped.blockchains);
     req.query('cache', mapped.cache);
     req.query('stale', mapped.stale);
-    return req.callAsJson(walletPortfolioResponseSchema, requestOptions);
+    return req.callAsJson(walletPortfolioResponse1Schema, requestOptions);
   }
 
   /**
+   * Retrieve all transactions for a specified wallet within a given timeframe.
+   *
    * @param wallet      The user wallet queried
-   * @param from        ISO Date string OR Timestamp from which you want to start receiving transactions
-   * @param to          ISO Date string OR Timestamp until which you want to receive transactions
-   * @param asset       The asset you want to target, use the asset's name (empty if you want general
-   *                                 transactions)
+   * @param from        Start of the timeframe for transactions (timestamp)
+   * @param to          End of the timeframe for transactions (timestamp)
+   * @param asset       Specific asset to filter transactions
    * @param blockchains Blockchains to fetch NFTs from (by default, all) - comma separated, chain ID or
    *                                 chain name
-   * @param limit       Number of transactions to return (100 by default)
-   * @param offset      Number of pages to skip (0 by default) - limit * offset = number of transactions
-   *                                 to skip
-   * @param order       Order in which transactions should be sorted. Use 'asc' for ascending and 'desc'
-   *                                 for descending.
+   * @param limit       Number of transactions to return per page
+   * @param offset      Number of transactions to skip
+   * @param order       Example: asc
    * @return Response from the API call
    */
   async fetchWalletTransactions(

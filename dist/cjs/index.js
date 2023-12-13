@@ -25,5 +25,4 @@ var orderEnum_1 = require("./models/orderEnum");
 Object.defineProperty(exports, "OrderEnum", { enumerable: true, get: function () { return orderEnum_1.OrderEnum; } });
 var typeEnum_1 = require("./models/typeEnum");
 Object.defineProperty(exports, "TypeEnum", { enumerable: true, get: function () { return typeEnum_1.TypeEnum; } });
-tslib_1.__exportStar(require("./models/containers/fetchAssetMetadataResponse"), exports);
 //# sourceMappingURL=index.js.map
