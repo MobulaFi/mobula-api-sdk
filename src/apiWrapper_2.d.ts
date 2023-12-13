@@ -1,7 +1,7 @@
-import { MarketPairsResponse } from '../../mobula-api-sdk//src/models/marketPairsResponse';
-import { TypeEnum } from '../../mobula-api-sdk//src/models/typeEnum';
-import { ApiResponse, RequestOptions } from '../../mobula-api-sdk/src/core';
+import { ApiResponse, RequestOptions } from './core';
+import { MarketPairsResponse } from './models/marketPairsResponse';
 import { OrderEnum } from './models/orderEnum';
+import { TypeEnum } from './models/typeEnum';
 declare class Mobula {
     private apiController;
     constructor(apiKey: string);

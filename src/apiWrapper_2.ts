@@ -1,9 +1,9 @@
-import { ApiController } from '../../mobula-api-sdk//src/controllers/apiController';
-import { MarketPairsResponse } from '../../mobula-api-sdk//src/models/marketPairsResponse';
-import { TypeEnum } from '../../mobula-api-sdk//src/models/typeEnum';
-import { Client } from '../../mobula-api-sdk/src/client';
-import { ApiResponse, RequestOptions } from '../../mobula-api-sdk/src/core';
+import { Client } from './client';
+import { ApiController } from './controllers/apiController';
+import { ApiResponse, RequestOptions } from './core';
+import { MarketPairsResponse } from './models/marketPairsResponse';
 import { OrderEnum } from './models/orderEnum';
+import { TypeEnum } from './models/typeEnum';
 
 class Mobula {
   private apiController: ApiController;
