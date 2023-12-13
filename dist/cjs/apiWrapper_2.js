@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mobula = void 0;
 var tslib_1 = require("tslib");
-var apiController_1 = require("../../mobula-api-sdk//src/controllers/apiController");
-var client_1 = require("../../mobula-api-sdk/src/client");
+var client_1 = require("./client");
+var apiController_1 = require("./controllers/apiController");
 var Mobula = /** @class */ (function () {
     function Mobula(apiKey) {
         var client = new client_1.Client({

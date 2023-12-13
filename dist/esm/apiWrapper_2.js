@@ -1,5 +1,5 @@
-import { ApiController } from '../../mobula-api-sdk//src/controllers/apiController';
-import { Client } from '../../mobula-api-sdk/src/client';
+import { Client } from './client';
+import { ApiController } from './controllers/apiController';
 class Mobula {
     constructor(apiKey) {
         const client = new Client({
