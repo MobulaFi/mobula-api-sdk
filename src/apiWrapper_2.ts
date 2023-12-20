@@ -1,12 +1,15 @@
+import { SupabaseClient } from '@supabase/supabase-js';
 import { Client } from './client';
 import { ApiController } from './controllers/apiController';
 import { ApiResponse, RequestOptions } from './core';
+import { PostgREST } from './db';
 import { MarketPairsResponse } from './models/marketPairsResponse';
 import { OrderEnum } from './models/orderEnum';
 import { TypeEnum } from './models/typeEnum';
 
 class Mobula {
   private apiController: ApiController;
+  public db: SupabaseClient;
 
   constructor(apiKey: string) {
     const client = new Client({
@@ -14,6 +17,10 @@ class Mobula {
       timeout: 0,
     });
     this.apiController = new ApiController(client);
+    this.db = new PostgREST(
+      'https://postgrest-readonly-fgpupeioaa-uc.a.run.app',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidW5hdXRoZW50aWZpZWQifQ.Fwr7hObDoGDsWDgmfMX8-xVqHoP-4f_DrAR3apJKIrw'
+    );
   }
 
   public async searchCryptoByName(options: {

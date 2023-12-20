@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mobula = void 0;
 var tslib_1 = require("tslib");
+var supabase_js_1 = require("@supabase/supabase-js");
 var client_1 = require("./client");
 var apiController_1 = require("./controllers/apiController");
 var Mobula = /** @class */ (function () {
@@ -11,6 +12,7 @@ var Mobula = /** @class */ (function () {
             timeout: 0,
         });
         this.apiController = new apiController_1.ApiController(client);
+        this.db = (0, supabase_js_1.createClient)('https://postgrest-readonly-fgpupeioaa-uc.a.run.app', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidW5hdXRoZW50aWZpZWQifQ.Fwr7hObDoGDsWDgmfMX8-xVqHoP-4f_DrAR3apJKIrw');
     }
     Mobula.prototype.searchCryptoByName = function (options) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
