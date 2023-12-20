@@ -1,0 +1,66 @@
+{
+  "version": "1.4.0",
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "dist/cjs/apiWrapper_2.js",
+  "typings": "dist/types/apiWrapper_2.d.ts",
+  "module": "dist/esm/apiWrapper_2.js",
+  "files": [
+    "dist",
+    "src",
+    "tsconfig.json"
+  ],
+  "engines": {
+    "node": ">=14.17.0"
+  },
+  "scripts": {
+    "build": "rm -rf dist & tsc -p tsconfig.esm.json & tsc -p tsconfig.cjs.json",
+    "test": "jest --coverage --passWithNoTests",
+    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
+    "prepare": "rm -rf dist & tsc -p tsconfig.esm.json & tsc -p tsconfig.cjs.json"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "mobula-api-sdk",
+  "description": "Mobula opens all the APIs powering the platform: meta-data, market & historical data for crypto-assets (logo, price, volumes, charts), wallet data (transactions, historical balances, ROIs), and DeFi quotes (swap quotes)",
+  "author": {
+    "name": "Mobula Labs",
+    "email": "contact@mobulalabs.org",
+    "url": "https://mobula.fi/"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "eslint": "^8.34.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "@apimatic/authentication-adapters": "^0.5.0",
+    "@apimatic/axios-client-adapter": "^0.2.2",
+    "@apimatic/core": "^0.10.2",
+    "@apimatic/schema": "^0.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anouci/mobula-api-sdk.git"
+  },
+  "bugs": {
+    "email": "contact@mobulalabs.org"
+  },
+  "homepage": "https://mobula.fi/",
+  "keywords": [
+    "API",
+    "Crypto",
+    "Wallet",
+    "Defi",
+    "DEX",
+    "Swap"
+  ],
+  "contributors": []
+}
