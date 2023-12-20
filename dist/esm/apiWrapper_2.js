@@ -1,6 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
 import { Client } from './client';
 import { ApiController } from './controllers/apiController';
+import { PostgREST } from './db';
 class Mobula {
     constructor(apiKey) {
         const client = new Client({
@@ -8,7 +8,7 @@ class Mobula {
             timeout: 0,
         });
         this.apiController = new ApiController(client);
-        this.db = createClient('https://postgrest-readonly-fgpupeioaa-uc.a.run.app', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidW5hdXRoZW50aWZpZWQifQ.Fwr7hObDoGDsWDgmfMX8-xVqHoP-4f_DrAR3apJKIrw');
+        this.db = new PostgREST('https://postgrest-readonly-fgpupeioaa-uc.a.run.app', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidW5hdXRoZW50aWZpZWQifQ.Fwr7hObDoGDsWDgmfMX8-xVqHoP-4f_DrAR3apJKIrw');
     }
     async searchCryptoByName(options) {
         return await this.apiController.searchCryptoByName(options.name, options.requestOptions);

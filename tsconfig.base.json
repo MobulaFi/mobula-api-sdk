@@ -13,6 +13,8 @@
     "moduleResolution": "node",
     "jsx": "react",
     "esModuleInterop": true,
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
   }
 }
